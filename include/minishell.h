@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:48:37 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/20 18:31:14 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/20 21:25:06 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_sep
 
 void	add_cell(t_env **env, t_env *new);
 t_env	*new_cell(char *key, char *value, int with_value);
+t_env	*new_cell_test(char *key, char *value, int with_value);
 t_env	*ft_lstlast(t_env *lst);
 
 /*---------------------utils.c--------------------------*/

@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:38:51 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/16 18:53:04 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/20 19:42:39 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,10 @@ void	free_env(t_env *env)
 	while (tmp)
 	{
 		env = env->next;
-		free(tmp->key);
-		free(tmp->value);
+		if (tmp->key)
+			free(tmp->key);
+		if (tmp->value)
+			free(tmp->value);
 		free(tmp);
 		tmp = NULL;
 		tmp = env;

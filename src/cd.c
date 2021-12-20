@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 15:58:26 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/14 19:50:17 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/20 21:40:03 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,11 @@ void	update_pwd(t_data *data, char *pwd, char *old_pwd)
 	{
 		add_cell(&data->env, new_cell("PWD", pwd, 1));
 		add_cell(&data->export, new_cell("PWD", pwd, 1));
-		printf("PWD added to env\n");
 	}
 	if (!get_key("OLDPWD", data->env))
 	{
 		add_cell(&data->env, new_cell("OLDPWD", old_pwd, 1));
 		add_cell(&data->export, new_cell("OLDPWD", old_pwd, 1));
-		printf("OLDPWD added to env\n");
 	}
 	if (pwd)
 	{

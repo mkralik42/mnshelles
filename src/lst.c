@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 15:40:36 by mkralik           #+#    #+#             */
-/*   Updated: 2021/11/23 13:30:33 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/20 21:25:19 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,20 @@ t_env	*new_cell(char *key, char *value, int with_value)
 		return (NULL);
 	cell->key = key;
 	cell->value = value;
+	cell->with_value = with_value;
+	cell->next = NULL;
+	return (cell);
+}
+
+t_env	*new_cell_test(char *key, char *value, int with_value)
+{
+	t_env	*cell;
+
+	cell = malloc(sizeof(t_env));
+	if (!cell)
+		return (NULL);
+	cell->key = ft_strdup(key);
+	cell->value = ft_strdup(value);
 	cell->with_value = with_value;
 	cell->next = NULL;
 	return (cell);

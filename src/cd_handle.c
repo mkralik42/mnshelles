@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 19:48:09 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/16 18:26:56 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/20 19:07:05 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ int	cd_simple_dash(t_data *data, int *new, char *old_pwd)
 
 void	cd(t_lst *cmd_lst, int *new, char *cdpath)
 {
-	if (cdpath && cmd_lst->arg[1] && cmd_lst->arg[1][0] != '/' && ft_strcmp(cmd_lst->arg[1], ".")
-		&& ft_strcmp(cmd_lst->arg[1], "..") && cdpath[ft_strlen(cdpath) - 1] == '/')
+	if (cdpath && cmd_lst->arg[1] && cmd_lst->arg[1][0] != '/'
+		&& ft_strcmp(cmd_lst->arg[1], ".") && ft_strcmp(cmd_lst->arg[1], "..")
+		&& cdpath[ft_strlen(cdpath) - 1] == '/')
 		*new = use_cdpath(cmd_lst, cdpath);
 	else
 		*new = chdir(cmd_lst->arg[1]);

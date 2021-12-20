@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 14:48:10 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/20 18:37:09 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/20 21:12:33 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ int	ft_execute(t_data *data, int exit_code, t_lst *lst, char **ch_env)
 	else
 	{
 		error_cmd(lst->cmd);
-		//ft_free_split(split);
-		ft_free_exit(data);
 		g_exit_status = 127;
-		return (g_exit_status);
+		ft_free_exit(data);
+		exit (g_exit_status);
 	}
 	return (exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 14:51:48 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/16 18:54:49 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/20 21:33:07 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	change_cell_env(char *key, char *new_value, t_env *env)
 {
 	t_env	*block;
+	char	*to_free;
 
 	block = env;
 	while (block)
@@ -25,7 +26,9 @@ void	change_cell_env(char *key, char *new_value, t_env *env)
 	}
 	if (!block->value[0])
 		block->with_value = 0;
+	to_free = block->value;
 	block->value = ft_strdup(new_value);
+	free (to_free);
 	if (!block->value)
 		return ;
 }
@@ -46,17 +49,22 @@ int	already_there(char *arg, t_env *env)
 
 void	export_w_value(t_data *data, char **arg, int i)
 {
-	char	**add;
+	char	**add_export;
+	char	**add_env;
 
-	add = ft_split_env(arg[i], '=');
-	if (!already_there(add[0], data->export)) //key n'existe pas deja
-		add_cell(&data->export, new_cell(add[0], add[1], 0)); //add dans env et export
-	else //key existe deja
-		change_cell_env(add[0], add[1], data->export); //remplacer key = value dans env et export
-	if (!already_there(add[0], data->env))
-		add_cell(&data->env, new_cell(add[0], add[1], 0)); // "&" mais je sais pas pk ?
+	add_export = ft_split_env(arg[i], '=');
+	if (!already_there(add_export[0], data->export))
+		add_cell(&data->export, new_cell_test(add_export[0], add_export[1], 0));
 	else
-		change_cell_env(add[0], add[1], data->env); //remplacer key = value dans env et export
+		change_cell_env(add_export[0], add_export[1], data->export);
+
+	add_env = ft_split_env(arg[i], '=');
+	if (!already_there(add_env[0], data->env))
+		add_cell(&data->env, new_cell_test(add_env[0], add_env[1], 0));
+	else
+		change_cell_env(add_env[0], add_env[1], data->env);
+	free_tab(add_export, 2);
+	free_tab(add_env, 2);
 }
 
 int	exec_export(t_lst *cmd_lst, t_data *data)
@@ -76,12 +84,12 @@ int	exec_export(t_lst *cmd_lst, t_data *data)
 			ft_putstr_fd("': not a valid identifier\n", 2);
 			g_exit_status = 1;
 		}
-		else if (!ft_strnstr(cmd_lst->arg[i], "=", ft_strlen(cmd_lst->arg[i]))) //il n'y a pas de =
+		else if (!ft_strnstr(cmd_lst->arg[i], "=", ft_strlen(cmd_lst->arg[i])))
 		{
-			if (!already_there(cmd_lst->arg[i], data->export)) //(la variable n'existe pas deja dans export)
-				add_cell(&data->export, new_cell(ft_strdup(cmd_lst->arg[i]), ft_strdup(""), 1)); //add dans export la ligne en dernier
+			if (!already_there(cmd_lst->arg[i], data->export))
+				add_cell(&data->export, new_cell(ft_strdup(cmd_lst->arg[i]), ft_strdup(""), 1));
 		}
-		else //si il y a un =
+		else
 			export_w_value(data, cmd_lst->arg, i);
 	}
 	return (g_exit_status);
