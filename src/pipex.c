@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 22:54:07 by paulguign         #+#    #+#             */
-/*   Updated: 2021/12/20 16:38:11 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/20 18:17:37 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static int	ft_pipe_exec(t_data *data, t_lst *lst, int *fd)
 	close(fd[1]);
 	ch_env = get_env_to_char(data->env);
 	ft_execute(data, 0, lst, ch_env);
-	printf("g apres execute %d\n", g_exit_status);
 	free_dble_str(ch_env);
 	return (g_exit_status);
 }

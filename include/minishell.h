@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:48:37 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/20 14:44:06 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/20 18:31:14 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ t_env	*get_prev(char *key, t_env *env);
 int		exec_exit(t_data *data, t_lst *cmd_lst);
 int		get_exit_code(t_data *data, t_lst *cmd_lst);
 int		exit_is_digit(char *s);
+void	ft_free_exit(t_data *data);
 
 int		ft_pipe(t_data *data, t_lst *lst, int fd_in, int step);
 int		error_catch(int test, char *file, char *msg);

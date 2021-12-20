@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 14:48:10 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/20 17:01:00 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/20 18:37:09 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@ int	ft_execute(t_data *data, int exit_code, t_lst *lst, char **ch_env)
 	if (lst && lst->builtin)
 	{
 		exit_code = exec_builtin(lst, data);
-		if (data->split)
-			ft_free_str(data->split);
-		if (data->cmd_lst)
-			free_cmd_lst(data, &data->cmd_lst);
-		ft_free_all(data);
+		ft_free_exit(data);
+		free_dble_str(ch_env);
 		exit(exit_code);
 	}
 	else if (lst && lst->path)
@@ -30,10 +27,9 @@ int	ft_execute(t_data *data, int exit_code, t_lst *lst, char **ch_env)
 	{
 		error_cmd(lst->cmd);
 		//ft_free_split(split);
-		//exit (ft_free_data(data, 127));
+		ft_free_exit(data);
 		g_exit_status = 127;
 		return (g_exit_status);
 	}
-	printf("g_e %d\n", g_exit_status);
 	return (exit_code);
 }
