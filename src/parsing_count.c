@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 18:41:15 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 15:23:46 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/21 16:08:04 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,9 @@ size_t	count_char(const char *s, char c, t_data *d)
 	}
 	else if (c == 'c')
 	{
-		while (s[i] && (s[i] == '<' || s[i] == '>'))
-		{
-			i++;
+		i--;
+		while (s[++i] && (s[i] == '<' || s[i] == '>'))
 			count++;
-		}
 	}
 	d->sp->s_quote = 0;
 	d->sp->d_quote = 0;
