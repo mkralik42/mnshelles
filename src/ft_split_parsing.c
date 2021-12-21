@@ -6,15 +6,15 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 18:41:15 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 11:52:43 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/21 15:10:00 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char *ft_free(char **dst)
+static char	*ft_free(char **dst)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (dst[i])
@@ -36,13 +36,16 @@ char	*make_split_char(char *s, t_data *d)
 	while (s[d->sp->line])
 	{
 		check_quote(s[d->sp->line], d);
-		if (is_charset(s[d->sp->line]) && d->sp->s_quote == 0 && d->sp->d_quote == 0)
-			break;
+		if (is_charset(s[d->sp->line]) && d->sp->s_quote == 0
+			&& d->sp->d_quote == 0)
+			break ;
 		if (s[d->sp->line] == '"' && d->sp->s_quote == 0)
 			d->sp->line++;
 		else if (s[d->sp->line] == '\'' && d->sp->d_quote == 0)
 			d->sp->line++;
-		else if ((s[d->sp->line] == '$' && (s[d->sp->line + 1] == '?' || ft_isalpha_parsing(s[d->sp->line + 1]))) && d->sp->s_quote == 0)
+		else if ((s[d->sp->line] == '$' && (s[d->sp->line + 1] == '?'
+					|| ft_isalpha_parsing(s[d->sp->line + 1])))
+			&& d->sp->s_quote == 0)
 			make_change(s, d);
 		else
 			d->sp->new[d->sp->j][d->sp->k++] = s[d->sp->line++];
@@ -53,7 +56,8 @@ char	*make_split_char(char *s, t_data *d)
 
 char	*make_split_chev(char *s, t_data *d)
 {
-	d->sp->new[d->sp->j] = (char *)malloc(sizeof(char) * (count_char(s, 'c', d) + 1));
+	d->sp->new[d->sp->j] = (char *)malloc(sizeof(char)
+			* (count_char(s, 'c', d) + 1));
 	if (!d->sp->new[d->sp->j])
 		return (ft_free(d->sp->new));
 	d->sp->k = 0;

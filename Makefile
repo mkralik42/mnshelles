@@ -18,6 +18,11 @@ SOURCES =	mini.c \
 			parsing_charset.c \
 			parsing_count.c \
 			parsing_utils_create.c \
+			parsing_utils_str.c \
+			parsing_check.c \
+			parsing_fill.c \
+			parsing_found.c \
+			parsing_file.c \
 			ft_split.c \
 			ft_strjoin.c \
 			lst.c \
