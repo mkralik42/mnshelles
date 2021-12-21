@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:38:51 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/20 19:42:39 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/21 22:20:08 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ void	remove_from_list(t_lst *cmd_lst, t_data *data)
 	if (!cmd_lst)
 		return ;
 	// free_str(&cmd_lst->cmd);
+	if (cmd_lst->cmd)
+		free(cmd_lst->cmd);
 	if (cmd_lst->arg)
-		free(cmd_lst->arg);
+		ft_free_str(cmd_lst->arg);
 	if (cmd_lst->path)
 		free(cmd_lst->path);
 	free(cmd_lst);

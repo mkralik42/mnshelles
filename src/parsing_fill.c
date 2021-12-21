@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 19:55:04 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/21 22:02:23 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_lst	*fill_arg(t_data *d, t_lst *cell)
 		{
 			if (d->split[place_cmd][0] == '<' || d->split[place_cmd][0] == '>')
 				break ;
-			d->argo[i] = d->split[place_cmd];
+			d->argo[i] = ft_strdup(d->split[place_cmd]);
 			i++;
 			place_cmd++;
 		}

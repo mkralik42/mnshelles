@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:07:05 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 15:47:07 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/21 21:56:04 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	add_cell_parsing(t_data *d, t_lst *new)
 t_lst	*create_new_char(t_lst *cell, char *split, char **arg, char what)
 {
 	if (what == 'c')
-		cell->cmd = split;
+		cell->cmd = ft_strdup(split);
 	if (what == 'p')
-		cell->path = split;
+		cell->path = ft_strdup(split);
 	if (what == 'a')
 		cell->arg = arg;
 	return (cell);
