@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 16:31:14 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/21 19:54:07 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 t_lst	*ft_free_double(char **path, char *cmd, t_lst *cell)
 {
-//	int	i;
+	int	i;
 
-//	i = 0;
-//	while (path[i])
-//	{
-//		free(path[i]);
-//		i++;
-//	}
+	i = 0;
+	while (path[i])
+	{
+		free(path[i]);
+		i++;
+	}
 	free(path);
 	if (cmd)
 		cell = create_new_char(cell, cmd, NULL, 'p');
@@ -36,8 +36,8 @@ t_lst	*ft_return(t_data *d, char **split_pipe, int i)
 
 	cell = init_cell();
 	cell->next = NULL;
-	if (i == 2)
-		free(d->sp);
+	free(d->sp);
+	d->sp = NULL;
 	if (i != 3)
 		ft_free_str(split_pipe);
 	add_cell_parsing(d, cell);
@@ -95,6 +95,7 @@ t_lst	*parsing(t_data *d)
 			if (ft_fill_split(d, sep, split_pipe, &i))
 				return (ft_return(d, split_pipe, 2));
 		ft_free_str(split_pipe);
+		split_pipe = NULL;
 		print_list(d->cmd_lst);
 	}
 	else
