@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 18:19:57 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/16 17:17:01 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/21 22:40:47 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ char	*ft_strdup(const char *s1)
 	char	*dst;
 	size_t	i;
 
+	if (!s1)
+		return (NULL);
 	dst = malloc(sizeof(char) * (ft_strlen(s1) + 1));
 	if (!dst)
 		return (NULL);

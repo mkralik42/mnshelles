@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 22:25:12 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/21 22:51:07 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 t_lst	*ft_free_double(char **path, char *cmd, t_lst *cell)
 {
-	ft_free_str(path);
+	if (path)
+		ft_free_str(path);
 	if (cmd)
 		cell = create_new_char(cell, cmd, NULL, 'p');
 	else
@@ -62,7 +63,10 @@ int	ft_fill_split(t_data *d, t_sep *sep, char **split_pipe, int *i)
 	if (!check_chev(d))
 		ft_fill_cell(d, sep);
 	else
+	{
+		ft_free_str(d->split);
 		return (1);
+	}
 	(*i)++;
 	ft_free_str(d->split);
 	d->split = NULL;

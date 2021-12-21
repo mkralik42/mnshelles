@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 16:36:06 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/21 22:56:20 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	found_cmd(t_data *d, t_lst *cell)
 	int	i;
 
 	i = 0;
-	while (d->split[i])
+	while (d->split[i] && cell->cmd)
 	{
 		if (ft_strcmp_parsing(cell->cmd, d->split[i]) != 1)
 			return (i);
@@ -44,15 +44,17 @@ t_lst	*found_path(t_lst *cell, t_data *d)
 	char	*cmd;
 
 	tmp = d->env;
+	path = NULL;
 	while (tmp && ft_strcmp_parsing(tmp->key, "PATH"))
 		tmp = tmp->next;
-	path = ft_split(tmp->value, ':');
-	if (!path)
-		return (NULL);
+	if (tmp)
+		path = ft_split(tmp->value, ':');
+	//if (!path)
+	//	return (NULL);
 	i = 0;
 	if (check_if_path(cell->cmd))
 		return (ft_free_double(path, NULL, cell));
-	while (path[i])
+	while (path && path[i])
 	{
 		cmd = found_path_data(path, i, cmd, cell);
 		if (access(cmd, F_OK) != -1)
@@ -60,7 +62,8 @@ t_lst	*found_path(t_lst *cell, t_data *d)
 		free(cmd);
 		i++;
 	}
-	ft_free_str(path);
+	if (path)
+		ft_free_str(path);
 	cell = create_new_char(cell, NULL, NULL, 'p');
 	return (cell);
 }
