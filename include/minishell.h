@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:48:37 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/20 21:25:06 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/21 12:01:45 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,27 +191,41 @@ void	free_cmd_lst(t_data *data, t_lst **cmd_lst);
 void	free_dble_str(char **str);
 void	free_str(char **str);
 
-/*---------------------ft_split_parsing.c--------------------------*/
+/*---------------------parsing_count.c--------------------------*/
 
 t_sp    *init_sp();
-void	free_split(char **args);
-char	**ft_split(const char *s, char c);
-t_sp	*init_sp();
-int		is_charset(char s);
+void	check_quote(char str, t_data *d);
+int		count_char_i(const char *s, t_data *d, int i, int *count);
+size_t	count_char(const char *s, char c, t_data *d);
+
+/*---------------------ft_split_parsing.c--------------------------*/
+
+char	*make_split_chev(char *s, t_data *d);
+char	*make_split_char(char *s, t_data *d);
+void	split_parsing(char *s, t_data *d);
 char	**ft_split_parsing(char *s, t_data *d);
+
+/*---------------------parsing_charset.c--------------------------*/
+
+int		is_charset(char s);
+int		count_charset_is(const char *s, int i, int *words);
+int		count_charset_not_else(const char *s, int i, int *words);
+int		count_charset_not(const char *s, int i, int *words, t_data *d);
+int		count_charset(t_data *d, const char *s);
+
+/*---------------------parsing_var_env.c--------------------*/
+
+char	*fill_memory(char *s, t_data *d, int i, t_env *tmp);
+void	copy_var_env(char *s, t_data *d, t_env *tmp, char *nb_exit);
+char	*make_change_new(char *s, t_data *d, int *i, int size_new);
+void	execute_var_env(char *s, t_data *d, int i, t_env *tmp);
 char 	*make_change(char *s, t_data *d);
 
 /*---------------------parsing_utils.c--------------------*/
 
-int		ft_isalpha_parsing(int c);
-t_lst   *create_cell(char *cmd);
-t_lst   *add_cell_pos(t_lst *list, char *cmd, int pos);
 void    print_list(t_lst *list);
 t_lst	*create_new(char *split, char **arg, char what, int file);
 int		found_place_raft(char **split, int i);
-void	add_cell_parsing(t_data *d, t_lst *new);
-t_lst	*create_new_char(t_lst *cell, char *split, char **arg, char what);
-t_lst	*create_new_int(t_lst *cell, char what, int file);
 char	*ft_strcpy(char *dest, char *src);
 void	ft_swap(char **a, char **b);
 int		ft_strcmp_parsing(char *s1, char *s2);
@@ -219,13 +233,40 @@ int		ft_strncmp_parsing(char *s1, char *s2, int n);
 void    ft_free_str(char **str);
 char	*ft_itoa(int n);
 
+/*---------------------parsing_utils_create.c--------------------*/
+
+t_lst   *create_cell(char *cmd);
+void	add_cell_parsing(t_data *d, t_lst *new);
+t_lst	*create_new_char(t_lst *cell, char *split, char **arg, char what);
+t_lst	*create_new_int(t_lst *cell, char what, int file);
+int		ft_isalpha_parsing(int c);
+
 /*---------------------parsing.c--------------------------*/
 
-void	check_separators(t_data *d, t_sep *sep);
+void	fill_sep_init(t_data *d, t_sep *sep, int i);
+void	fill_sep(t_data *d, t_sep *sep);
+int		check_sep(t_sep *sep);
 void	init_sep(t_sep *sep);
-void	print_sep(t_sep *sep, t_data *split);
+t_lst	*init_cell();
+void	print_sep(t_sep *sep, t_data *d);
+int		check_chev_data(t_data *d, int i, int j);
+int		check_chev(t_data *d);
+int		check_pipe_space(char *split_pipe);
+int		check_pipe(char **split_pipe, t_sep *sep);
+void	check_in_out_data(t_data *d, t_sep *sep, t_lst *cell, int place_raft);
 t_lst	*check_infile_outfile(t_data *d, t_sep *sep, t_lst *cell);
 t_lst	*fill_in_out_file(t_data *d, t_sep *sep, t_lst *cell);
+int		found_cmd(t_data *d, t_lst *cell);
+int		fill_arg_data(t_data *d, int place_cmd);
+t_lst	*fill_arg(t_data *d, t_lst *cell);
+t_lst	*fill_builtin(t_lst *cell);
+int		check_if_path(char *argv);
+t_lst	*ft_free_double(char **path, char *cmd, t_lst *cell);
+char	*found_path_data(char **path , int i, char *cmd, t_lst *cell);
+t_lst	*found_path(t_lst *cell, t_data *d);
+t_lst	*ft_return(t_data *d, char **split_pipe, int i);
+void	ft_fill_cell(t_data *d, t_sep *sep);
+int		ft_fill_split(t_data *d, t_sep *sep, char **split_pipe, int *i);
 t_lst	*parsing(t_data *d);
 
 /*---------------------signal.c---------------------------*/
