@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 15:57:31 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/21 16:36:06 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ t_lst	*found_path(t_lst *cell, t_data *d)
 		free(cmd);
 		i++;
 	}
+	ft_free_str(path);
 	cell = create_new_char(cell, NULL, NULL, 'p');
 	return (cell);
 }

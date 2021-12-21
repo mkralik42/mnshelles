@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 15:11:28 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/21 16:31:14 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 t_lst	*ft_free_double(char **path, char *cmd, t_lst *cell)
 {
-	int	i;
+//	int	i;
 
-	i = 0;
-	while (path[i])
-	{
-		free(path[i]);
-		i++;
-	}
+//	i = 0;
+//	while (path[i])
+//	{
+//		free(path[i]);
+//		i++;
+//	}
 	free(path);
 	if (cmd)
 		cell = create_new_char(cell, cmd, NULL, 'p');
