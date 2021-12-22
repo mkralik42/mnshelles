@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:48:37 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/21 15:26:29 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/22 10:55:02 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,7 +274,7 @@ int		fill_arg_data(t_data *d, int place_cmd);
 
 /*---------------------parsing_check.c--------------------------*/
 
-int		check_sep(t_sep *sep);
+int		check_sep(t_sep *sep, t_data *d);
 int		check_chev_data(t_data *d, int i, int j);
 int		check_chev(t_data *d);
 int		check_pipe_space(char *split_pipe);

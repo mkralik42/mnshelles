@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 22:51:07 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/22 10:49:26 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_lst	*parsing(t_data *d)
 	init_sep(sep);
 	fill_sep(d, sep);
 	d->split = NULL;
-	if (!check_sep(sep))
+	if (!check_sep(sep, d))
 	{
 		split_pipe = ft_split(d->line, '|');
 		if (check_pipe(split_pipe, sep))

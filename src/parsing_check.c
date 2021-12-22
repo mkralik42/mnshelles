@@ -6,14 +6,16 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 15:15:45 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/22 10:54:32 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_sep(t_sep *sep)
+int	check_sep(t_sep *sep, t_data *d)
 {
+	if (!check_pipe_space(d->line))
+		return (1);
 	if (sep->simple_quo % 2 == 1 || sep->double_quo % 2 == 1)
 	{
 		ft_putstr_fd("Syntax error : unmatched quote\n", 2);
