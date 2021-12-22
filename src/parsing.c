@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/22 10:49:26 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/22 11:22:45 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 t_lst	*ft_free_double(char **path, char *cmd, t_lst *cell)
 {
+	if (!cmd)
+	{
+ 		if (access(cell->cmd, F_OK) != -1)
+			cell = create_new_char(cell, cell->cmd, NULL, 'p');
+		else
+			cell = create_new_char(cell, NULL, NULL, 'p');
+	}
 	if (path)
 		ft_free_str(path);
 	if (cmd)
 		cell = create_new_char(cell, cmd, NULL, 'p');
-	else
-		cell = create_new_char(cell, cell->cmd, NULL, 'p');
 	free(cmd);
 	return (cell);
 }
