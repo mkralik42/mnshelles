@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 22:54:07 by paulguign         #+#    #+#             */
-/*   Updated: 2021/12/20 18:59:06 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/22 18:50:00 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ static int	ft_pipe_exec(t_data *data, t_lst *lst, int *fd)
 	if (error_catch(dup2(fd[0], STDIN_FILENO) < 0, NULL, strerror(errno)))
 	{
 		g_exit_status = 1;
+		ft_free_all(data);
 		exit (g_exit_status);
-		//exit (ft_free_data(data, 1));
 	}
 	if (error_catch(dup2(fd[1], STDOUT_FILENO) < 0, NULL, strerror(errno)))
 	{
 		g_exit_status = 1;
+		ft_free_all(data);
 		exit (g_exit_status);
-		//exit (ft_free_data(data, 1));
 	}
 	close(fd[0]);
 	close(fd[1]);
@@ -63,21 +63,14 @@ int	ft_pipe(t_data *data, t_lst *lst, int fd_in, int step)
 	if (lst && !lst->next && lst->builtin
 		&& step == 1 && ft_strcmp(lst->cmd, "echo"))
 	{
-		printf("boghsigs\n");
 		ret = exec_builtin(lst, data);
 		return (ret);
 	}
 	if (error_catch(pipe(fd) < 0, NULL, strerror(errno)))
-	{
-		ft_free_all(data);
 		return (1);
-	}
 	pid = fork();
 	if (error_catch(pid < 0, NULL, strerror(errno)))
-	{
-		ft_free_all(data);
-		exit (1);
-	}
+		return (1);
 	if (pid == 0)
 	{
 		init_signal_child(data);

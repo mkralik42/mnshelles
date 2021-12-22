@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:48:37 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/22 10:55:02 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/22 18:32:18 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,8 @@ void	cd_no_file(t_lst *cmd_lst, int new);
 
 //unset
 int		exec_unset(t_lst *cmd_lst, t_data *data);
-void	unset(t_lst *cmd_lst, t_env *env);
+void	free_first_env(t_env **env, t_env *tmp);
+void	unset(char *arg, t_env **env);
 t_env	*get_prev(char *key, t_env *env);
 
 //exit

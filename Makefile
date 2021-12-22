@@ -2,7 +2,7 @@ NAME	= minishell
 
 CC		= gcc
 
-FLAGS	= -Wall -Wextra -Werror -g
+FLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
 
 INCLUDE	= include
 

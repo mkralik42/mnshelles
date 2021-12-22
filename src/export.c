@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 14:51:48 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/20 21:33:07 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/22 14:14:08 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	export_w_value(t_data *data, char **arg, int i)
 		add_cell(&data->export, new_cell_test(add_export[0], add_export[1], 0));
 	else
 		change_cell_env(add_export[0], add_export[1], data->export);
-
 	add_env = ft_split_env(arg[i], '=');
 	if (!already_there(add_env[0], data->env))
 		add_cell(&data->env, new_cell_test(add_env[0], add_env[1], 0));
@@ -87,7 +86,8 @@ int	exec_export(t_lst *cmd_lst, t_data *data)
 		else if (!ft_strnstr(cmd_lst->arg[i], "=", ft_strlen(cmd_lst->arg[i])))
 		{
 			if (!already_there(cmd_lst->arg[i], data->export))
-				add_cell(&data->export, new_cell(ft_strdup(cmd_lst->arg[i]), ft_strdup(""), 1));
+				add_cell(&data->export, new_cell(ft_strdup(cmd_lst->arg[i]),
+						ft_strdup(""), 1));
 		}
 		else
 			export_w_value(data, cmd_lst->arg, i);

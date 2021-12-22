@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:44:41 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/16 17:59:30 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/22 14:08:31 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	boucle_get_next_line(char **line, int i)
 
 void	get_line(char *buff, char **line)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = NULL;
 	buff[1] = 0;
@@ -58,7 +58,7 @@ char	*get_next_line(t_data *data, char **line)
 	{
 		ret = read(STDIN_FILENO, buff, 1);
 		if (ret == -1)
-			break;
+			break ;
 		get_line(buff, line);
 		i++;
 	}
@@ -74,16 +74,15 @@ int	heredoc(t_data *data, char *eof)
 	line = ft_strdup("");
 	if (error_catch(pipe(fd) < 0, NULL, strerror(errno)))
 	{
-		//free
 		return (1);
 	}
 	while (1)
 	{
-		line = get_next_line(data, &line); //recupere la ligne
-		// printf("-   🖕   %s-\n", line);
-		if (ft_strncmp(line, eof, ft_strlen(eof)) == 0 && line[ft_strlen(eof)] == '\n') // si eof on break
-			break;
-		ft_putstr_fd(line, fd[1]); //ecrire ligne dans fd[1] entree du pipe
+		line = get_next_line(data, &line);
+		if (ft_strncmp(line, eof, ft_strlen(eof)) == 0
+			&& line[ft_strlen(eof)] == '\n')
+			break ;
+		ft_putstr_fd(line, fd[1]);
 		free(line);
 		line = ft_strdup("");
 	}

@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 15:50:42 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/21 22:02:56 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/22 18:50:53 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ t_data	*init_data(char **envp)
 	data->split = NULL;
 	data->argo = NULL;
 	init_signal(data);
-
 	return (data);
 }
 
@@ -125,10 +124,13 @@ int	main(int argc, char **argv, char **envp)
 			{
 				g_exit_status = ft_pipe(d, d->cmd_lst, -1, 1);
 			}
-//			if (d->split)
-//				ft_free_str(d->split);
 			if (d->cmd_lst)
 				free_cmd_lst(d, &d->cmd_lst);
+			if (d->line)
+				free(d->line);
+		}
+		else
+		{
 			if (d->line)
 				free(d->line);
 		}
