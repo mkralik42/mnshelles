@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 22:02:23 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/23 17:48:59 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,21 @@ t_lst	*fill_in_out_file(t_data *d, t_sep *sep, t_lst *cell)
 		{
 			if (cell->input > 0)
 				close(cell->input);
-			fd[0] = heredoc(d, d->split[p_r + 1]);
+			if (!cell->cmd)
+			{
+				fd[0] = heredoc(d, d->split[p_r + 2]);
+				cell->cmd = ft_strdup("cat");
+				cell->arg = malloc(sizeof(char *) * 2);
+				// proteger
+				cell->arg[0] = ft_strdup("cat");
+				cell->arg[1] = NULL;
+				cell->path = "/usr/bin/cat";
+				cell->input = 3;
+				cell->output = 0;
+				cell->builtin = 0;
+			}
+			else
+				fd[0] = heredoc(d, d->split[p_r + 1]);
 			cell->input = fd[0];
 		}
 		p_r = found_place_raft(d->split, p_r + 1);

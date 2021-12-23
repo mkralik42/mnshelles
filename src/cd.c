@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 15:58:26 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/20 21:40:03 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/23 16:51:58 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	use_cdpath(t_lst *cmd_lst, char *cdpath)
 	path = ft_strjoin(cdpath, cmd_lst->arg[1]);
 	new = chdir(path);
 	if (new == -1)
+	{
+		free(path);
 		return (chdir(cmd_lst->arg[1]));
+	}
 	ft_putstr_fd(path, 1);
 	ft_putstr_fd("\n", 1);
 	free(path);
@@ -29,22 +32,12 @@ int	use_cdpath(t_lst *cmd_lst, char *cdpath)
 
 void	update_pwd(t_data *data, char *pwd, char *old_pwd)
 {
-	if (!get_key("PWD", data->env))
-	{
-		add_cell(&data->env, new_cell("PWD", pwd, 1));
-		add_cell(&data->export, new_cell("PWD", pwd, 1));
-	}
-	if (!get_key("OLDPWD", data->env))
-	{
-		add_cell(&data->env, new_cell("OLDPWD", old_pwd, 1));
-		add_cell(&data->export, new_cell("OLDPWD", old_pwd, 1));
-	}
-	if (pwd)
+	if (get_key("PWD", data->env))
 	{
 		change_cell_env("PWD", pwd, data->env);
 		change_cell_env("PWD", pwd, data->export);
 	}
-	if (old_pwd)
+	if (get_key("OLDPWD", data->env))
 	{
 		change_cell_env("OLDPWD", old_pwd, data->env);
 		change_cell_env("OLDPWD", old_pwd, data->export);
@@ -76,6 +69,7 @@ int	exec_cd(t_lst *cmd_lst, t_data *data)
 	char	*cdpath;
 	int		new;
 
+	new = 0;
 	cdpath = get_key("CDPATH", data->env);
 	old_pwd = ft_getcwd();
 	if (cmd_lst->arg && cmd_lst->arg[1] && cmd_lst->arg[2])
