@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:48:37 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/22 18:32:18 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/23 15:17:10 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,34 +23,34 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-extern int g_exit_status;
+extern int	g_exit_status;
 
 typedef struct s_lst
 {
-	char	*cmd;
-	char	**arg;
-	char	*path;
-	int		input;
-	int		output;
-	int		builtin;
+	char			*cmd;
+	char			**arg;
+	char			*path;
+	int				input;
+	int				output;
+	int				builtin;
 	struct s_lst	*next;
 }	t_lst;
 
 typedef struct s_env
 {
-	char	*key;
-	char	*value;
-	int		with_value;
+	char			*key;
+	char			*value;
+	int				with_value;
 	struct s_env	*next;
 }	t_env;
 
 typedef struct s_sp
 {
-    int     line;
-    int     count;
-    int     j;
-    int     k;
-    char    **new;
+	int		line;
+	int		count;
+	int		j;
+	int		k;
+	char	**new;
 	int		s_quote;
 	int		d_quote;
 	int		count_c;
@@ -103,7 +103,7 @@ char	**ft_split(const char *s, char c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, int n);
-int 	cmp_str(const char *s1, const char *s2);
+int		cmp_str(const char *s1, const char *s2);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_free_strjoin(char *s1, char *s2);
 int		ft_atoi(const char *str);
@@ -160,7 +160,6 @@ int		cd_dble_dash(t_data *data, int *new);
 int		cd_too_many(void);
 void	cd_no_file(t_lst *cmd_lst, int new);
 
-
 //unset
 int		exec_unset(t_lst *cmd_lst, t_data *data);
 void	free_first_env(t_env **env, t_env *tmp);
@@ -177,8 +176,7 @@ int		ft_pipe(t_data *data, t_lst *lst, int fd_in, int step);
 int		error_catch(int test, char *file, char *msg);
 
 //int	exec(t_data *data, t_lst *cmd_lst, t_lst *lst, char **ch_env);
-int	ft_execute(t_data *data, int exit_code, t_lst *lst, char **ch_env);
-
+int		ft_execute(t_data *data, int exit_code, t_lst *lst, char **ch_env);
 
 /*------------------------free.c--------------------------*/
 
@@ -190,7 +188,7 @@ void	free_str(char **str);
 
 /*---------------------parsing_count.c--------------------------*/
 
-t_sp    *init_sp(void);
+t_sp	*init_sp(void);
 void	check_quote(char str, t_data *d);
 int		count_char_i(const char *s, t_data *d, int i, int *count);
 size_t	count_char(const char *s, char c, t_data *d);
@@ -216,11 +214,11 @@ char	*fill_memory(char *s, t_data *d, int i, t_env *tmp);
 void	copy_var_env(char *s, t_data *d, t_env *tmp, char *nb_exit);
 char	*make_change_new(char *s, t_data *d, int *i, int size_new);
 void	execute_var_env(char *s, t_data *d, int i, t_env *tmp);
-char 	*make_change(char *s, t_data *d);
+char	*make_change(char *s, t_data *d);
 
 /*---------------------parsing_utils.c--------------------*/
 
-void    print_list(t_lst *list);
+void	print_list(t_lst *list);
 t_lst	*create_new(char *split, char **arg, char what, int file);
 int		found_place_raft(char **split, int i);
 void	ft_swap(char **a, char **b);
@@ -230,12 +228,12 @@ char	*ft_itoa(int n);
 
 int		ft_strcmp_parsing(char *s1, char *s2);
 int		ft_strncmp_parsing(char *s1, char *s2, int n);
-void    ft_free_str(char **str);
+void	ft_free_str(char **str);
 char	*ft_strcpy(char *dest, char *src);
 
 /*---------------------parsing_utils_create.c--------------------*/
 
-t_lst   *create_cell(char *cmd);
+t_lst	*create_cell(char *cmd);
 void	add_cell_parsing(t_data *d, t_lst *new);
 t_lst	*create_new_char(t_lst *cell, char *split, char **arg, char what);
 t_lst	*create_new_int(t_lst *cell, char what, int file);
@@ -260,7 +258,7 @@ t_lst	*fill_builtin(t_lst *cell);
 /*---------------------parsing_found.c--------------------------*/
 
 int		found_cmd(t_data *d, t_lst *cell);
-char	*found_path_data(char **path , int i, char *cmd, t_lst *cell);
+char	*found_path_data(char **path, int i, char *cmd, t_lst *cell);
 t_lst	*found_path(t_lst *cell, t_data *d);
 void	print_sep(t_sep *sep, t_data *d);
 int		check_if_path(char *argv);
@@ -283,14 +281,14 @@ int		check_pipe(char **split_pipe, t_sep *sep);
 
 /*---------------------signal.c---------------------------*/
 
-void    init_signal(t_data *data);
-void    init_signal_child(t_data *data);
+void	init_signal(t_data *data);
+void	init_signal_child(t_data *data);
 void	init_signal_cmd(t_data *data);
-void    handle_sig(int signum);
-void    handle_sig_child(int signum);
+void	handle_sig(int signum);
+void	handle_sig_child(int signum);
 void	handle_sig_cmd(int signum);
-void    ft_signal_sigint(void);
-void    ft_signal_stdin(void);
+void	ft_signal_sigint(void);
+void	ft_signal_stdin(void);
 
 /*--------------------heredoc.c---------------------------*/
 

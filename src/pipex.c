@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 22:54:07 by paulguign         #+#    #+#             */
-/*   Updated: 2021/12/22 18:50:00 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/23 15:44:39 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,29 @@ static int	ft_pipe_exec(t_data *data, t_lst *lst, int *fd)
 	return (g_exit_status);
 }
 
+void	pipe_child(t_data *data, int *fd, t_lst *lst, int fd_in)
+{
+	init_signal_child(data);
+	close(fd[0]);
+	if (fd_in == -1 && lst->input == 0)
+		fd[0] = open("/dev/stdin", O_RDONLY);
+	else if (lst->input == 0)
+		fd[0] = fd_in;
+	else
+		fd[0] = lst->input;
+	if (lst->output == 0 && !lst->next)
+	{
+		close(fd[1]);
+		fd[1] = open("/dev/stdout", O_WRONLY);
+	}
+	else if (lst->output != 0)
+	{
+		close(fd[1]);
+		fd[1] = lst->output;
+	}
+	ft_pipe_exec(data, lst, fd);
+}
+
 int	ft_pipe(t_data *data, t_lst *lst, int fd_in, int step)
 {
 	int	fd[2];
@@ -72,27 +95,7 @@ int	ft_pipe(t_data *data, t_lst *lst, int fd_in, int step)
 	if (error_catch(pid < 0, NULL, strerror(errno)))
 		return (1);
 	if (pid == 0)
-	{
-		init_signal_child(data);
-		close(fd[0]);
-		if (fd_in == -1 && lst->input == 0)
-			fd[0] = open("/dev/stdin", O_RDONLY);
-		else if (lst->input == 0)
-			fd[0] = fd_in;
-		else
-			fd[0] = lst->input;
-		if (lst->output == 0 && !lst->next)
-		{
-			close(fd[1]);
-			fd[1] = open("/dev/stdout", O_WRONLY);
-		}
-		else if (lst->output != 0)
-		{
-			close(fd[1]);
-			fd[1] = lst->output;
-		}
-		ft_pipe_exec(data, lst, fd);
-	}
+		pipe_child(data, fd, lst, fd_in);
 	close(fd[1]);
 	if (lst->next)
 		ret = ft_pipe(data, lst->next, fd[0], step + 1);

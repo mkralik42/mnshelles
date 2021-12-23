@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 22:56:20 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/23 15:50:29 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_lst	*found_path(t_lst *cell, t_data *d)
 void	print_sep(t_sep *sep, t_data *d)
 {
 	printf("| = %i\n&& = %i\n' = %i\n\" = %i\n< = %i\n> = %i\n<< = %i\n>> = %i\ninfile = %s\noutfile = %s\n", sep->pipe, sep->double_and, sep->simple_quo, sep->double_quo, sep->simple_raft_left, sep->simple_raft_right, sep->double_raft_left, sep->double_raft_right, sep->infile, sep->outfile);
-	for(int q=0; d->split[q]; q++)
+	for (int q = 0; d->split[q]; q++)
 		printf("d->split[%i] = %s\n", q, d->split[q]);
 }
 

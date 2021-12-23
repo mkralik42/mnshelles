@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 15:50:42 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/22 18:50:53 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/23 13:58:23 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,12 @@ char	*design_prompt(t_data *data)
 	return (user);
 }
 
-int	exec_builtin(t_lst *cmd_lst, t_data *data)
-{
-	g_exit_status = 0;
-	if (!ft_strcmp(cmd_lst->cmd, "echo"))
-		return (exec_echo(cmd_lst, data));
-	else if (!ft_strcmp(cmd_lst->cmd, "cd"))
-		return (exec_cd(cmd_lst, data));
-	else if (!ft_strcmp(cmd_lst->cmd, "pwd"))
-		return (exec_pwd(cmd_lst, data));
-	else if (!ft_strcmp(cmd_lst->cmd, "export"))
-		return (exec_export(cmd_lst, data));
-	else if (!ft_strcmp(cmd_lst->cmd, "unset"))
-		return (exec_unset(cmd_lst, data));
-	else if (!ft_strcmp(cmd_lst->cmd, "env"))
-		return (exec_env(cmd_lst, data));
-	else if (!ft_strcmp(cmd_lst->cmd, "exit"))
-		exec_exit(data, cmd_lst);
-	return (EXIT_FAILURE);
-}
-
 t_env	*get_env_export(char **envp)
 {
 	t_env	*block;
 	int		i;
 	char	**cell;
-	int		SHLVL;
+	int		shlvl;
 
 	i = 0;
 	block = NULL;
@@ -61,9 +41,9 @@ t_env	*get_env_export(char **envp)
 		cell = ft_split_env(envp[i], '=');
 		if (!ft_strcmp(cell[0], "SHLVL"))
 		{
-			SHLVL = ft_atoi(cell[1]) + 1;
+			shlvl = ft_atoi(cell[1]) + 1;
 			free(cell[1]);
-			cell[1] = ft_itoa(SHLVL);
+			cell[1] = ft_itoa(shlvl);
 		}
 		add_cell(&block, new_cell(cell[0], cell[1], 0));
 		free(cell);
@@ -91,6 +71,34 @@ t_data	*init_data(char **envp)
 	return (data);
 }
 
+void	ft_minishell(t_data *d)
+{
+	while (1)
+	{
+		init_signal(d);
+		d->line = readline(d->prompt);
+		if (!d->line)
+		{
+			printf("exit\n");
+			break ;
+		}
+		if (d->line[0])
+		{
+			add_history(d->line);
+			d->cmd_lst = parsing(d);
+			if (d->cmd_lst->cmd)
+				g_exit_status = ft_pipe(d, d->cmd_lst, -1, 1);
+			if (d->cmd_lst)
+				free_cmd_lst(d, &d->cmd_lst);
+			if (d->line)
+				free(d->line);
+		}
+		else
+			if (d->line)
+				free(d->line);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*d;
@@ -107,34 +115,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!d)
 		return (1);
 	d->prompt = design_prompt(d);
-	while (1)
-	{
-		init_signal(d);
-		d->line = readline(d->prompt);
-		if (!d->line)
-		{
-			printf("exit\n");
-			break ;
-		}
-		if (d->line[0])
-		{
-			add_history(d->line);
-			d->cmd_lst = parsing(d);
-			if (d->cmd_lst->cmd)
-			{
-				g_exit_status = ft_pipe(d, d->cmd_lst, -1, 1);
-			}
-			if (d->cmd_lst)
-				free_cmd_lst(d, &d->cmd_lst);
-			if (d->line)
-				free(d->line);
-		}
-		else
-		{
-			if (d->line)
-				free(d->line);
-		}
-	}
+	ft_minishell(d);
 	ft_free_all(d);
 	return (0);
 }

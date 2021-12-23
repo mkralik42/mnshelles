@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:46:27 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/22 18:41:33 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/23 15:31:15 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ int	exec_unset(t_lst *cmd_lst, t_data *data)
 		}
 		else
 		{
-			printf("bonjour\n");
 			unset(cmd_lst->arg[i], &data->env);
 			unset(cmd_lst->arg[i], &data->export);
 		}
