@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:48:37 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/23 15:17:10 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/28 11:50:21 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ char	*make_change(char *s, t_data *d);
 
 void	print_list(t_lst *list);
 t_lst	*create_new(char *split, char **arg, char what, int file);
-int		found_place_raft(char **split, int i);
+int		found_place_raft(char **split, int i, t_data *d);
 void	ft_swap(char **a, char **b);
 char	*ft_itoa(int n);
 
@@ -243,14 +243,14 @@ int		ft_isalpha_parsing(int c);
 
 t_lst	*ft_free_double(char **path, char *cmd, t_lst *cell);
 t_lst	*ft_return(t_data *d, char **split_pipe, int i);
-void	ft_fill_cell(t_data *d, t_sep *sep);
+void	ft_fill_cell(t_data *d, t_sep *sep, char **split_quote);
 int		ft_fill_split(t_data *d, t_sep *sep, char **split_pipe, int *i);
 t_lst	*parsing(t_data *d);
 
 /*---------------------parsing_file.c--------------------------*/
 
 void	check_in_out_data(t_data *d, t_sep *sep, t_lst *cell, int place_raft);
-t_lst	*check_infile_outfile(t_data *d, t_sep *sep, t_lst *cell);
+t_lst	*check_infile_outfile(t_data *d, t_sep *sep, t_lst *cell, char **split_quote);
 void	init_sep(t_sep *sep);
 t_lst	*init_cell(void);
 t_lst	*fill_builtin(t_lst *cell);
@@ -267,17 +267,25 @@ int		check_if_path(char *argv);
 
 void	fill_sep_init(t_data *d, t_sep *sep, int i);
 void	fill_sep(t_data *d, t_sep *sep);
-t_lst	*fill_in_out_file(t_data *d, t_sep *sep, t_lst *cell);
-t_lst	*fill_arg(t_data *d, t_lst *cell);
+t_lst	*fill_in_out_file(t_data *d, t_sep *sep, t_lst *cell, char **split_quote);
+t_lst	*fill_arg(t_data *d, t_lst *cell, char **split_quote);
 int		fill_arg_data(t_data *d, int place_cmd);
 
 /*---------------------parsing_check.c--------------------------*/
 
 int		check_sep(t_sep *sep, t_data *d);
-int		check_chev_data(t_data *d, int i, int j);
-int		check_chev(t_data *d);
+int		check_chev_data(char **split_pipe, int i, int j, t_data *);
+int		check_chev(t_data *d, char **split_pipe);
 int		check_pipe_space(char *split_pipe);
 int		check_pipe(char **split_pipe, t_sep *sep);
+
+/*---------------------ft_split_parsing_pipes.c--------------------------*/
+
+char    **ft_split_parsing_pipe(const char *s, char c, t_data *d);
+
+/*---------------------ft_split_parsing_quote.c--------------------------*/
+
+char    **ft_split_parsing_quote(char *split_pipe, t_data *d);
 
 /*---------------------signal.c---------------------------*/
 

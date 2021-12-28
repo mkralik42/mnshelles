@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:07:05 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 15:44:52 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/28 11:48:57 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,20 +99,25 @@ void	print_list(t_lst *list)
 	}
 }
 
-int	found_place_raft(char **split, int i)
+int found_place_raft(char **split, int i, t_data *d)
 {
-	int	j;
+    int j;
 
-	while (split[i])
-	{
-		j = 0;
-		while (split[i][j])
-		{
-			if (split[i][j] == '<' || split[i][j] == '>')
-				return (i);
-			j++;
-		}
-		i++;
-	}
-	return (-1);
+    d->sp->s_quote = 0;
+    d->sp->d_quote = 0;
+    while (split[i])
+    {
+        j = 0;
+        while (split[i][j])
+        {
+            check_quote(split[i][j], d);
+            if ((split[i][j] == '<' || split[i][j] == '>') && d->sp->d_quote == 0 && d->sp->s_quote == 0)
+                return (i);
+            j++;
+        }
+        i++;
+    }
+    d->sp->s_quote = 0;
+    d->sp->d_quote = 0;
+    return (-1);
 }

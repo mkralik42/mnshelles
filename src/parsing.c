@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/23 15:51:32 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/28 12:18:38 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,36 +43,36 @@ t_lst	*ft_return(t_data *d, char **split_pipe, int i)
 	return (d->cmd_lst);
 }
 
-void	ft_fill_cell(t_data *d, t_sep *sep)
+void	ft_fill_cell(t_data *d, t_sep *sep, char **split_quote)
 {
 	t_lst	*cell;
 
 	cell = init_cell();
-	cell = check_infile_outfile(d, sep, cell);
-	cell = fill_in_out_file(d, sep, cell);
+	cell = check_infile_outfile(d, sep, cell, split_quote);
+	cell = fill_in_out_file(d, sep, cell, split_quote);
 	cell = fill_builtin(cell);
 	if (cell->builtin == 0)
 		cell = found_path(cell, d);
-	cell = fill_arg(d, cell);
+	cell = fill_arg(d, cell, split_quote);
 	cell->next = NULL;
 	add_cell_parsing(d, cell);
-//	print_sep(sep, d);
+	//	print_sep(sep, d);
 }
 
-int	ft_fill_split(t_data *d, t_sep *sep, char **split_pipe, int *i)
+int ft_fill_split(t_data *d, t_sep *sep, char **split_pipe, int *i)
 {
-	int	j;
+	int j;
+	char **split_quote;
 
 	j = *i;
 	d->split = ft_split_parsing(split_pipe[j], d);
-	if (!check_chev(d))
-		ft_fill_cell(d, sep);
-	else
-	{
-		ft_free_str(d->split);
-		return (1);
-	}
+	free(d->sp);
+	d->sp = NULL;
+	split_quote = ft_split_parsing_quote(split_pipe[j], d);
+	ft_fill_cell(d, sep, split_quote);
 	(*i)++;
+	ft_free_str(split_quote);
+	split_quote = NULL;
 	ft_free_str(d->split);
 	d->split = NULL;
 	free(d->sp);
@@ -80,11 +80,11 @@ int	ft_fill_split(t_data *d, t_sep *sep, char **split_pipe, int *i)
 	return (0);
 }
 
-t_lst	*parsing(t_data *d)
+t_lst   *parsing(t_data *d)
 {
-	t_sep	sep[1];
-	char	**split_pipe;
-	int		i;
+	t_sep   sep[1];
+	char    **split_pipe;
+	int     i;
 
 	i = 0;
 	init_sep(sep);
@@ -92,8 +92,8 @@ t_lst	*parsing(t_data *d)
 	d->split = NULL;
 	if (!check_sep(sep, d))
 	{
-		split_pipe = ft_split(d->line, '|');
-		if (check_pipe(split_pipe, sep))
+		split_pipe = ft_split_parsing_pipe(d->line, '|', d);
+		if (check_pipe(split_pipe, sep) && check_chev(d, split_pipe))
 			return (ft_return(d, split_pipe, 1));
 		while (split_pipe[i])
 			if (ft_fill_split(d, sep, split_pipe, &i))
@@ -106,3 +106,4 @@ t_lst	*parsing(t_data *d)
 		return (ft_return(d, NULL, 3));
 	return (d->cmd_lst);
 }
+

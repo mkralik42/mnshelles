@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 18:41:15 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 19:30:46 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/28 15:31:07 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	count_char_i(const char *s, t_data *d, int i, int *count)
 {
 	if (s[i] == '"' && d->sp->s_quote == 0)
 		i++;
-	else if (s[d->sp->line] == '\'' && d->sp->d_quote == 0)
+	else if (s[i] == '\'' && d->sp->d_quote == 0)
 		i++;
 	else
 	{
@@ -66,6 +66,8 @@ size_t	count_char(const char *s, char c, t_data *d)
 	size_t	i;
 	int		count;
 
+	d->sp->s_quote = 0;
+	d->sp->d_quote = 0;
 	i = d->sp->line;
 	count = 0;
 	if (c == 'w')

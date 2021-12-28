@@ -14,6 +14,8 @@ SOURCES =	mini.c \
 			parsing.c \
 			parsing_utils.c \
 			ft_split_parsing.c \
+			ft_split_parsing_pipe.c \
+			ft_split_parsing_quote.c \
 			parsing_var_env.c \
 			parsing_charset.c \
 			parsing_count.c \

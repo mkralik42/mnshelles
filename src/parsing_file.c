@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 19:54:32 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/28 12:08:53 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ void	check_in_out_data(t_data *d, t_sep *sep, t_lst *cell, int place_raft)
 	}
 }
 
-t_lst	*check_infile_outfile(t_data *d, t_sep *sep, t_lst *cell)
+t_lst	*check_infile_outfile(t_data *d, t_sep *sep, t_lst *cell, char **split_quote)
 {
 	int	place_raft;
 
-	place_raft = found_place_raft(d->split, 0);
+	place_raft = found_place_raft(split_quote, 0, d);
 	if (place_raft != -1)
 	{
 		while (place_raft != -1)
 		{
 			check_in_out_data(d, sep, cell, place_raft);
-			place_raft = found_place_raft(d->split, place_raft + 1);
+			place_raft = found_place_raft(split_quote, place_raft + 1, d);
 		}
 	}
 	else

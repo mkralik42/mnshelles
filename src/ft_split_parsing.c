@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 18:41:15 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 19:55:35 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/28 15:33:05 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*make_split_char(char *s, t_data *d)
 		else
 			d->sp->new[d->sp->j][d->sp->k++] = s[d->sp->line++];
 	}
-	d->sp->new[d->sp->j][d->sp->k] = 0;
+	d->sp->new[d->sp->j][d->sp->k] = '\0';
 	return (d->sp->new[d->sp->j]);
 }
 
