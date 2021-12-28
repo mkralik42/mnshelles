@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/28 12:26:09 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/28 16:07:05 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,17 @@ t_lst	*fill_in_out_file(t_data *d, t_sep *sep, t_lst *cell, char **split_quote)
 {
 	int	p_r;
 	int	fd[0];
-
+(void)sep;
 	p_r = found_place_raft(split_quote, 0, d);
 	while (p_r != -1)
 	{
 		if (d->split[p_r][0] == '<' && d->split[p_r][1] != '<')
-			cell = create_new_int(cell, 'i', open(sep->infile, O_RDONLY));
+			cell = create_new_int(cell, 'i', open(d->split[p_r + 1], O_RDONLY));
 		else if (d->split[p_r][0] == '>' && d->split[p_r][1] != '>')
-			cell = create_new_int(cell, 'o', open(sep->outfile, O_CREAT
+			cell = create_new_int(cell, 'o', open(d->split[p_r + 1], O_CREAT
 						| O_WRONLY | O_TRUNC, 0644));
 		else if (d->split[p_r][0] == '>' && d->split[p_r][1] == '>')
-			cell = create_new_int(cell, 'i', open(sep->infile, O_CREAT
+			cell = create_new_int(cell, 'i', open(d->split[p_r + 1], O_CREAT
 						| O_WRONLY | O_APPEND, 0644));
 		else if (d->split[p_r][0] == '<' && d->split[p_r][1] == '<')
 		{
