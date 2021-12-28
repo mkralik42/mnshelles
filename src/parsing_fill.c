@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/28 16:07:05 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/28 16:24:59 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,12 @@ t_lst	*fill_in_out_file(t_data *d, t_sep *sep, t_lst *cell, char **split_quote)
 			cell = create_new_int(cell, 'o', open(d->split[p_r + 1], O_CREAT
 						| O_WRONLY | O_TRUNC, 0644));
 		else if (d->split[p_r][0] == '>' && d->split[p_r][1] == '>')
-			cell = create_new_int(cell, 'i', open(d->split[p_r + 1], O_CREAT
+		{
+			cell = create_new_int(cell, 'o', open(d->split[p_r + 1], O_CREAT
 						| O_WRONLY | O_APPEND, 0644));
+		//	cell = create_new_int(cell, 'i', open(d->split[p_r + 1], O_CREAT
+		//				| O_WRONLY | O_APPEND, 0644));
+		}
 		else if (d->split[p_r][0] == '<' && d->split[p_r][1] == '<')
 		{
 			if (cell->input > 0)
