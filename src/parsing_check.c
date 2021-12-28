@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/28 12:23:58 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/28 18:59:09 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,58 +27,58 @@ int	check_sep(t_sep *sep, t_data *d)
 
 int check_chev_data(char **split_pipe, int i, int j, t_data *d)
 {
-    if (((split_pipe[i][j] == '<' && split_pipe[i][j + 1] == '<'
-        && split_pipe[i][j + 2] == '<') || (split_pipe[i][j] == '<' 
-        && split_pipe[i][j + 1] == '>')) && (d->sp->s_quote == 0 || d->sp->d_quote == 0))
-    {
-        ft_putstr_fd("syntax error near unexpected token `<<<'\n", 2);
-        g_exit_status = 2;
-        return (g_exit_status);
-    }
-    else if (((split_pipe[i][j] == '>' && split_pipe[i][j + 1] == '>'
-        && split_pipe[i][j + 2] == '>') || (split_pipe[i][j] == '>' 
-        && split_pipe[i][j + 1] == '<')) && (d->sp->s_quote == 0 || d->sp->d_quote == 0))
-    {
-        ft_putstr_fd("syntax error near unexpected token `>>>'\n", 2);
-        g_exit_status = 2;
-        return (g_exit_status);
-    }
-    else if (((split_pipe[i][j] == '>' || split_pipe[i][j] == '<')
-        && split_pipe[i + 1] == NULL) && (d->sp->s_quote == 0 && d->sp->d_quote == 0))
-    {
-        ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
-        g_exit_status = 2;
-        return (g_exit_status);
-    }
-    return (0);
+	if (((split_pipe[i][j] == '<' && split_pipe[i][j + 1] == '<'
+					&& split_pipe[i][j + 2] == '<') || (split_pipe[i][j] == '<' 
+						&& split_pipe[i][j + 1] == '>')) && (d->sp->s_quote == 0 || d->sp->d_quote == 0))
+	{
+		ft_putstr_fd("syntax error near unexpected token `<<<'\n", 2);
+		g_exit_status = 2;
+		return (g_exit_status);
+	}
+	else if (((split_pipe[i][j] == '>' && split_pipe[i][j + 1] == '>'
+					&& split_pipe[i][j + 2] == '>') || (split_pipe[i][j] == '>' 
+						&& split_pipe[i][j + 1] == '<')) && (d->sp->s_quote == 0 || d->sp->d_quote == 0))
+	{
+		ft_putstr_fd("syntax error near unexpected token `>>>'\n", 2);
+		g_exit_status = 2;
+		return (g_exit_status);
+	}
+	else if (((split_pipe[i][j] == '>' || split_pipe[i][j] == '<')
+				&& d->split[i + 1] == NULL) && (d->sp->s_quote == 0 && d->sp->d_quote == 0))
+	{
+		printf("split = %s\n", split_pipe[i]);
+		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+		g_exit_status = 2;
+		return (g_exit_status);
+	}
+	return (0);
 }
 
 int check_chev(t_data *d, char **split_pipe)
 {
-    int i;
-    int j;
+	int i;
+	int j;
 
-    i = 0;
-    d->sp = init_sp();
-    d->sp->s_quote = 0;
-    d->sp->d_quote = 0;
-    while (split_pipe[i])
-    {
-        j = 0;
-        while (split_pipe[i][j])
-        {
-            check_quote(split_pipe[i][j], d);
-            if (check_chev_data(split_pipe, i, j, d))
-            {
-                return (g_exit_status);
-            }
-            j++;
-        }
-        i++;
-    }
-    free(d->sp);
-    d->sp = NULL;
-    return (0);
+	i = 0;
+	d->sp->s_quote = 0;
+	d->sp->d_quote = 0;
+	while (split_pipe[i])
+	{
+		j = 0;
+		while (split_pipe[i][j])
+		{
+			check_quote(split_pipe[i][j], d);
+			if (check_chev_data(split_pipe, i, j, d))
+			{
+				return (g_exit_status);
+			}
+			j++;
+		}
+		i++;
+	}
+	free(d->sp);
+	d->sp = NULL;
+	return (0);
 }
 
 int	check_pipe_space(char *split_pipe)

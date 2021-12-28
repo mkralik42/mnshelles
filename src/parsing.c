@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/28 12:18:38 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/28 18:59:33 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ t_lst	*ft_return(t_data *d, char **split_pipe, int i)
 {
 	t_lst	*cell;
 
+	if (d->split)
+		ft_free_str(d->split);
+	d->split = NULL;
 	cell = init_cell();
 	cell->next = NULL;
 	free(d->sp);
@@ -66,8 +69,10 @@ int ft_fill_split(t_data *d, t_sep *sep, char **split_pipe, int *i)
 
 	j = *i;
 	d->split = ft_split_parsing(split_pipe[j], d);
-	free(d->sp);
-	d->sp = NULL;
+	if (check_chev(d, split_pipe) != 0)
+		return (1);
+//	free(d->sp);
+//	d->sp = NULL;
 	split_quote = ft_split_parsing_quote(split_pipe[j], d);
 	ft_fill_cell(d, sep, split_quote);
 	(*i)++;
@@ -93,7 +98,7 @@ t_lst   *parsing(t_data *d)
 	if (!check_sep(sep, d))
 	{
 		split_pipe = ft_split_parsing_pipe(d->line, '|', d);
-		if (check_pipe(split_pipe, sep) && check_chev(d, split_pipe))
+		if (check_pipe(split_pipe, sep) != 0)
 			return (ft_return(d, split_pipe, 1));
 		while (split_pipe[i])
 			if (ft_fill_split(d, sep, split_pipe, &i))
