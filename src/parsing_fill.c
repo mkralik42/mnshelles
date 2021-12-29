@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/28 19:56:51 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/29 11:18:21 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ t_lst	*fill_in_out_file(t_data *d, t_sep *sep, t_lst *cell, char **split_quote)
 				fd[0] = heredoc(d, d->split[p_r + 2]);
 				cell->cmd = ft_strdup("cat");
 				cell->arg = malloc(sizeof(char *) * 2);
-				// proteger
+				if (!cell->arg)
+					return (NULL);
 				cell->arg[0] = ft_strdup("cat");
 				cell->arg[1] = NULL;
 				cell->path = "/usr/bin/cat";

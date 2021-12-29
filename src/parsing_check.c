@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/28 18:59:09 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/29 11:02:13 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int check_chev_data(char **split_pipe, int i, int j, t_data *d)
 {
 	if (((split_pipe[i][j] == '<' && split_pipe[i][j + 1] == '<'
 					&& split_pipe[i][j + 2] == '<') || (split_pipe[i][j] == '<' 
-						&& split_pipe[i][j + 1] == '>')) && (d->sp->s_quote == 0 || d->sp->d_quote == 0))
+						&& split_pipe[i][j + 1] == '>')) && d->sp->s_quote == 0 && d->sp->d_quote == 0)
 	{
 		ft_putstr_fd("syntax error near unexpected token `<<<'\n", 2);
 		g_exit_status = 2;
@@ -37,14 +37,14 @@ int check_chev_data(char **split_pipe, int i, int j, t_data *d)
 	}
 	else if (((split_pipe[i][j] == '>' && split_pipe[i][j + 1] == '>'
 					&& split_pipe[i][j + 2] == '>') || (split_pipe[i][j] == '>' 
-						&& split_pipe[i][j + 1] == '<')) && (d->sp->s_quote == 0 || d->sp->d_quote == 0))
+						&& split_pipe[i][j + 1] == '<')) && d->sp->s_quote == 0 && d->sp->d_quote == 0)
 	{
 		ft_putstr_fd("syntax error near unexpected token `>>>'\n", 2);
 		g_exit_status = 2;
 		return (g_exit_status);
 	}
 	else if (((split_pipe[i][j] == '>' || split_pipe[i][j] == '<')
-				&& d->split[i + 1] == NULL) && (d->sp->s_quote == 0 && d->sp->d_quote == 0))
+				&& d->split[i + 1] == NULL) && d->sp->s_quote == 0 && d->sp->d_quote == 0)
 	{
 		printf("split = %s\n", split_pipe[i]);
 		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);

@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:44:41 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/23 17:29:37 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/29 11:27:47 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	heredoc(t_data *data, char *eof)
 		free(line);
 		line = ft_strdup("");
 	}
+	free(eof);
 	free(line);
 	close(fd[1]);
 	return (fd[0]);
