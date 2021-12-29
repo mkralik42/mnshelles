@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/23 15:50:29 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/29 15:03:59 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int	check_if_path(char *argv)
 	int	i;
 
 	i = 0;
+	if (!argv)
+		return (0);
 	while (argv[i])
 	{
 		if (argv[i] == '/')
