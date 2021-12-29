@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 18:41:15 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 15:52:29 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/29 18:46:05 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	*fill_memory(char *s, t_data *d, int i, t_env *tmp)
 	char	*nb_exit;
 
 	nb_exit = ft_itoa(g_exit_status);
-	printf("nb = %i, nb exit = %s\n", g_exit_status, nb_exit);
 	if (d->sp->remember_mem == 0 && s[d->sp->line] != '?')
 		d->sp->new[d->sp->j] = (char *)malloc((sizeof(char)
 					* (d->sp->count_c - i) + ft_strlen(tmp->value) + 1));
@@ -126,7 +125,10 @@ char	*make_change(char *s, t_data *d)
 	if (cmp_str(tmp->key, new) || s[d->sp->line] == '?')
 		execute_var_env(s, d, i, tmp);
 	else
+	{
+		free(new);
 		return (NULL);
+	}
 	free(new);
 	return (d->sp->new[d->sp->j]);
 }
