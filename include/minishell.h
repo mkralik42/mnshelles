@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:48:37 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/29 15:25:12 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/29 19:38:04 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,6 +286,13 @@ char    **ft_split_parsing_pipe(const char *s, char c, t_data *d);
 /*---------------------ft_split_parsing_quote.c--------------------------*/
 
 char    **ft_split_parsing_quote(char *split_pipe, t_data *d);
+
+/*---------------------ft_split_parsing_quote.c--------------------------*/
+
+int		count_charset_not_else_quote(const char *s, int i, int *words);
+int		count_charset_not_quote(const char *s, int i, int *words, t_data *d);
+int		count_charset_quote(t_data *d, const char *s);
+size_t  count_char_quote(const char *s, char c, t_data *d);
 
 /*---------------------signal.c---------------------------*/
 
