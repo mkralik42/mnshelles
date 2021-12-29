@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/29 16:52:56 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/29 18:38:01 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ int check_chev_data(char **split_pipe, int i, int j, t_data *d)
 		return (g_exit_status);
 	}
 	else if (((split_pipe[i][j] == '>' || split_pipe[i][j] == '<')
-				&& d->split[i + 1] == NULL) && d->sp->s_quote == 0 && d->sp->d_quote == 0)
+				&& ((d->split[i][0] == '>' || d->split[i][0] == '<') && d->split[i + 1] == NULL))
+					&& d->sp->s_quote == 0 && d->sp->d_quote == 0)
 	{
-
+		printf("pipe = %s\n", d->split[i]);
 		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 		g_exit_status = 2;
 		return (g_exit_status);
