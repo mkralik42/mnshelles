@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:48:37 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/28 11:50:21 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/29 15:25:12 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_data
 	char	**split;
 	char	**argo;
 	int		exit_value;
-
+	int		nb_pipe;
 }		t_data;
 
 typedef struct s_sep

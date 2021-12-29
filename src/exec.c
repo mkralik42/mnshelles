@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 14:48:10 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/23 13:58:33 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/29 15:25:47 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	exec_builtin(t_lst *cmd_lst, t_data *data)
 		return (exec_unset(cmd_lst, data));
 	else if (!ft_strcmp(cmd_lst->cmd, "env"))
 		return (exec_env(cmd_lst, data));
-	else if (!ft_strcmp(cmd_lst->cmd, "exit"))
+	else if (!ft_strcmp(cmd_lst->cmd, "exit") && !data->nb_pipe)
 		exec_exit(data, cmd_lst);
 	return (EXIT_FAILURE);
 }
