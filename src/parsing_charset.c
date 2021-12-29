@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 18:41:15 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/21 15:12:59 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/29 16:22:27 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	count_charset_not(const char *s, int i, int *words, t_data *d)
 		while (s[i] && s[i] != '"')
 			i++;
 		i++;
+		d->sp->d_quote = 0;
 		if (s[i] && s[i] != ' ')
 			(*words)--;
 	}
@@ -61,6 +62,7 @@ int	count_charset_not(const char *s, int i, int *words, t_data *d)
 		while (s[i] && s[i] != '\'')
 			i++;
 		i++;
+		d->sp->s_quote = 0;
 		if (s[i] && s[i] != ' ')
 			(*words)--;
 	}

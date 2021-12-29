@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/29 14:53:51 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/29 16:50:55 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,32 @@ void    fill_sep(t_data *d, t_sep *sep)
     d_quote = 0;
     while (d->line[i])
     {
-        if (d->line[i] == '\'' && d_quote == 0)
+        if (d->line[i] == '"' && d_quote == 1)
+        {
+            sep->double_quo++;
+            d_quote = 0;
+        }
+        else if (d->line[i] == '\'' && s_quote == 1)
+        {
+            sep->simple_quo++;
+            s_quote = 0;
+        }
+        else if (d->line[i] == '\'' && d_quote == 0)
         {
             s_quote = 1;
             sep->simple_quo++;
         }
-        if (d->line[i] == '"' && s_quote == 0)
+        else if (d->line[i] == '"' && s_quote == 0)
         {
             d_quote = 1;
             sep->double_quo++;
         }
-        if (d->line[i] == '|' && d_quote == 0 && s_quote == 0)
+        else if (d->line[i] == '|' && d_quote == 0 && s_quote == 0)
             sep->pipe++;
         fill_sep_init(d, sep, i);
         i++;
     }
+	d->nb_pipe = sep->pipe;
 }
 
 t_lst	*fill_in_out_file(t_data *d, t_sep *sep, t_lst *cell, char **split_quote)
@@ -98,10 +109,10 @@ t_lst	*fill_in_out_file(t_data *d, t_sep *sep, t_lst *cell, char **split_quote)
 			{
 				if (ft_strcmp(d->split[0], "<<"))
 					fd[0] = heredoc(d, d->split[p_r + 1]);
-				// printf("split 0 = %s\n", d->split[0]);
-				// printf("split 1 = %s\n", d->split[1]);
-				// printf("split 2 = %s\n", d->split[2]);
-				// //printf("split 0 = %s\n", d->split[p_r]);
+				 //printf("split 0 = %s\n", d->split[0]);
+				 //printf("split 1 = %s\n", d->split[1]);
+				 //printf("split 2 = %s\n", d->split[2]);
+				 //printf("split 0 = %s\n", d->split[p_r]);
 				else
 					fd[0] = heredoc(d, d->split[p_r + 2]);
 			}
@@ -133,6 +144,7 @@ t_lst	*fill_arg(t_data *d, t_lst *cell, char **split_quote)
 			return (NULL);
 		while (d->split[place_cmd] && d->split[place_cmd][0] != '|')
 		{
+			printf("split = %s\n", d->split[place_cmd]);
 			if (d->split[place_cmd][0] == '<' || d->split[place_cmd][0] == '>')
 				break ;
 			d->argo[i] = ft_strdup(d->split[place_cmd]);

@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 15:50:42 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/23 13:58:23 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/29 16:25:08 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_data	*init_data(char **envp)
 	data->cmd_lst = NULL;
 	data->split = NULL;
 	data->argo = NULL;
+	data->nb_pipe = 0;
 	init_signal(data);
 	return (data);
 }
