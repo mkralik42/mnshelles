@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/29 16:50:55 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/29 18:13:58 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,7 @@ t_lst	*fill_in_out_file(t_data *d, t_sep *sep, t_lst *cell, char **split_quote)
 				close(cell->input);
 			if (!cell->cmd)
 			{
-				fd[0] = heredoc(d, d->split[p_r + 2]);
-				// cell->cmd = ft_strdup("cat");
-				// cell->arg = malloc(sizeof(char *) * 2);
-				// if (!cell->arg)
-				// 	return (NULL);
-				// cell->arg[0] = ft_strdup("cat");
-				// cell->arg[1] = NULL;
-				// cell->path = "/usr/bin/cat";
+				fd[0] = heredoc(d, d->split[p_r + 1]);
 				cell->cmd = NULL;
 				cell->arg = NULL;
 				cell->path = NULL;
@@ -109,12 +102,8 @@ t_lst	*fill_in_out_file(t_data *d, t_sep *sep, t_lst *cell, char **split_quote)
 			{
 				if (ft_strcmp(d->split[0], "<<"))
 					fd[0] = heredoc(d, d->split[p_r + 1]);
-				 //printf("split 0 = %s\n", d->split[0]);
-				 //printf("split 1 = %s\n", d->split[1]);
-				 //printf("split 2 = %s\n", d->split[2]);
-				 //printf("split 0 = %s\n", d->split[p_r]);
 				else
-					fd[0] = heredoc(d, d->split[p_r + 2]);
+					fd[0] = heredoc(d, d->split[p_r + 1]);
 			}
 			cell->input = fd[0];
 		}

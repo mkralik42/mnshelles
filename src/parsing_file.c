@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/28 16:06:45 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/29 18:00:29 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	check_in_out_data(t_data *d, t_sep *sep, t_lst *cell, int place_raft)
 	(void)sep;
 	if (d->split[place_raft][0] == '<')
 	{
-	//	sep->infile = d->split[place_raft + 1];
 		if (place_raft != 0)
 		{
 			while (d->split[place_raft - 1][0] == '-')
@@ -27,12 +26,11 @@ void	check_in_out_data(t_data *d, t_sep *sep, t_lst *cell, int place_raft)
 		else
 		{
 			cell = create_new_char(cell, d->split[place_raft + 2], NULL, 'c');
-			ft_swap(&d->split[place_raft + 1], &d->split[place_raft + 2]);
+	//		ft_swap(&d->split[place_raft + 1], &d->split[place_raft + 2]);
 		}
 	}
 	else if (d->split[place_raft][0] == '>')
 	{
-	//	sep->outfile = d->split[place_raft + 1];
 		if (!cell->cmd)
 			cell = create_new_char(cell, d->split[0], NULL, 'c');
 	}
