@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:07:05 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/30 15:22:47 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/30 19:05:46 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,39 +64,6 @@ void	ft_swap(char **a, char **b)
 	tmp = *a;
 	*a = *b;
 	*b = tmp;
-}
-
-void	print_list(t_lst *list)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (list)
-	{
-		printf("-----------------------------------\n");
-		printf("| pipe = %d                        \n", i);
-		printf("| cmd = %s            \n", list->cmd);
-		if (list->arg)
-		{
-			printf("| arg = ");
-			j = 0;
-			while (list->arg[j])
-			{
-				printf("%s--", list->arg[j]);
-				j++;
-			}
-		}
-		printf("\n");
-		printf("| path = %s			  \n", list->path);
-		printf("| input = %i		  \n", list->input);
-		printf("| output = %i		  \n", list->output);
-		printf("| builtin = %i			\n", list->builtin);
-		printf("-----------------------------------\n");
-		list = list->next;
-		i++;
-	}
 }
 
 int	found_place_raft(char **split, int i, t_data *d)

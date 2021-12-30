@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 14:48:10 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/30 14:54:14 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/30 18:17:07 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	ft_execute(t_data *data, int exit_code, t_lst *lst, char **ch_env)
 		if (exit_code == -1)
 		{
 			free_before_exit(data, ch_env);
-			exit(exit_code);
+			g_exit_status = 126;
+			exit(g_exit_status);
 		}
 	}
 	else

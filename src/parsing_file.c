@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/30 16:50:19 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/30 18:54:21 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	check_in_out_data(t_data *d, t_sep *sep, t_lst *cell, int place_raft)
 	(void)sep;
 	if (d->split[place_raft][0] == '<')
 	{
+		if (cell->cmd)
+			free(cell->cmd);
 		if (place_raft != 0)
 			cell = create_new_char(cell, d->split[0], NULL, 'c');
 		else
