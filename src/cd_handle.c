@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 19:48:09 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/30 14:49:43 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/30 17:21:38 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@ void	cd_no_file(t_lst *cmd_lst, int new)
 	}
 }
 
-int	cd_too_many(void)
+int	cd_too_many(char *old_pwd)
 {
 	ft_putstr_fd("cd: too many arguments\n", 2);
 	g_exit_status = 1;
+	free_str(&old_pwd);
 	return (g_exit_status);
 }

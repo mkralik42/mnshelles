@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:48:37 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/30 15:26:28 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/30 17:22:29 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ int		exec_cd(t_lst *cmd_lst, t_data *data);
 void	cd(t_lst *cmd_lst, int *new, char *cdpath);
 int		cd_simple_dash(t_data *data, int *new, char *old_pwd);
 int		cd_dble_dash(t_data *data, int *new);
-int		cd_too_many(void);
+int		cd_too_many(char *old_pwd);
 void	cd_no_file(t_lst *cmd_lst, int new);
 
 //unset
