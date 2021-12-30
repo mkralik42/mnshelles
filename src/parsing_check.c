@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/30 12:07:15 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/30 17:58:55 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int	check_chev_data(char **split_pipe, int i, int j, t_data *d)
 		&& split_pipe[i][j + 1] == '<'))
 		&& d->sp->s_quote == 0 && d->sp->d_quote == 0)
 		return (check_chev_data_return(2));
-	else if (((split_pipe[i][j] == '>' || split_pipe[i][j] == '<')
-		&& ((d->split[i][0] == '>' || d->split[i][0] == '<')
-		&& d->split[i + 1] == NULL)) && d->sp->s_quote == 0
-		&& d->sp->d_quote == 0)
+	else if (d->split && d->split[i] && ((split_pipe[i][j] == '>'
+			|| split_pipe[i][j] == '<') && ((d->split[i][0] == '>'
+			|| d->split[i][0] == '<') && d->split[i + 1] == NULL))
+			&& d->sp->s_quote == 0 && d->sp->d_quote == 0)
 		return (check_chev_data_return(3));
 	return (0);
 }
@@ -53,19 +53,13 @@ int	check_chev(t_data *d, char **split_pipe)
 	i = 0;
 	d->sp->s_quote = 0;
 	d->sp->d_quote = 0;
-	while (split_pipe[i])
+	j = 0;
+	while (split_pipe[i][j])
 	{
-		j = 0;
-		while (split_pipe[i][j])
-		{
-			check_quote(split_pipe[i][j], d);
-			if (check_chev_data(split_pipe, i, j, d))
-			{
-				return (g_exit_status);
-			}
-			j++;
-		}
-		i++;
+		check_quote(split_pipe[i][j], d);
+		if (check_chev_data(split_pipe, i, j, d))
+			return (g_exit_status);
+		j++;
 	}
 	free(d->sp);
 	d->sp = NULL;
