@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:48:37 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/29 19:38:04 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/30 12:42:31 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ t_sp	*init_sp(void);
 void	check_quote(char str, t_data *d);
 int		count_char_i(const char *s, t_data *d, int i, int *count);
 size_t	count_char(const char *s, char c, t_data *d);
+int		check_chev_data_return(int what);
 
 /*---------------------ft_split_parsing.c--------------------------*/
 
@@ -250,9 +251,7 @@ t_lst	*parsing(t_data *d);
 /*---------------------parsing_file.c--------------------------*/
 
 void	check_in_out_data(t_data *d, t_sep *sep, t_lst *cell, int place_raft);
-t_lst	*check_infile_outfile(t_data *d, t_sep *sep, t_lst *cell, char **split_quote);
-void	init_sep(t_sep *sep);
-t_lst	*init_cell(void);
+t_lst	*check_infile_outfile(t_data *d, t_sep *sep, t_lst *cell, char **s_q);
 t_lst	*fill_builtin(t_lst *cell);
 
 /*---------------------parsing_found.c--------------------------*/
@@ -265,10 +264,9 @@ int		check_if_path(char *argv);
 
 /*---------------------parsing_fill.c--------------------------*/
 
-void	fill_sep_init(t_data *d, t_sep *sep, int i);
 void	fill_sep(t_data *d, t_sep *sep);
-t_lst	*fill_in_out_file(t_data *d, t_sep *sep, t_lst *cell, char **split_quote);
-t_lst	*fill_arg(t_data *d, t_lst *cell, char **split_quote);
+t_lst	*fill_in_out_file(t_data *d, t_lst *cell, char **split_quote);
+t_lst	*fill_arg(t_data *d, t_lst *cell);
 int		fill_arg_data(t_data *d, int place_cmd);
 
 /*---------------------parsing_check.c--------------------------*/
@@ -279,6 +277,14 @@ int		check_chev(t_data *d, char **split_pipe);
 int		check_pipe_space(char *split_pipe);
 int		check_pipe(char **split_pipe, t_sep *sep);
 
+/*---------------------parsing_init.c--------------------------*/
+
+void    init_quote(t_data *d);
+void    init_sep(t_sep *sep);
+t_lst   *init_cell(void);
+void	fill_sep_init(t_data *d, t_sep *sep, int i);
+int		fill_sep_quote(int s_quote, int d_quote, t_sep *sep, int what);
+
 /*---------------------ft_split_parsing_pipes.c--------------------------*/
 
 char    **ft_split_parsing_pipe(const char *s, char c, t_data *d);
@@ -287,7 +293,7 @@ char    **ft_split_parsing_pipe(const char *s, char c, t_data *d);
 
 char    **ft_split_parsing_quote(char *split_pipe, t_data *d);
 
-/*---------------------ft_split_parsing_quote.c--------------------------*/
+/*---------------------ft_split_parsing_quote_bis.c--------------------------*/
 
 int		count_charset_not_else_quote(const char *s, int i, int *words);
 int		count_charset_not_quote(const char *s, int i, int *words, t_data *d);

@@ -26,6 +26,7 @@ SOURCES =	mini.c \
 			parsing_fill.c \
 			parsing_found.c \
 			parsing_file.c \
+			parsing_init.c \
 			ft_split.c \
 			ft_strjoin.c \
 			lst.c \

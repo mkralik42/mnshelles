@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/29 11:13:35 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/30 12:23:26 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,27 +52,24 @@ void	ft_fill_cell(t_data *d, t_sep *sep, char **split_quote)
 
 	cell = init_cell();
 	cell = check_infile_outfile(d, sep, cell, split_quote);
-	cell = fill_in_out_file(d, sep, cell, split_quote);
+	cell = fill_in_out_file(d, cell, split_quote);
 	cell = fill_builtin(cell);
 	if (cell->builtin == 0)
 		cell = found_path(cell, d);
-	cell = fill_arg(d, cell, split_quote);
+	cell = fill_arg(d, cell);
 	cell->next = NULL;
 	add_cell_parsing(d, cell);
-	//	print_sep(sep, d);
 }
 
-int ft_fill_split(t_data *d, t_sep *sep, char **split_pipe, int *i)
+int	ft_fill_split(t_data *d, t_sep *sep, char **split_pipe, int *i)
 {
-	int j;
-	char **split_quote;
+	int		j;
+	char	**split_quote;
 
 	j = *i;
 	d->split = ft_split_parsing(split_pipe[j], d);
 	if (check_chev(d, split_pipe) != 0)
 		return (1);
-//	free(d->sp);
-//	d->sp = NULL;
 	split_quote = ft_split_parsing_quote(split_pipe[j], d);
 	ft_fill_cell(d, sep, split_quote);
 	(*i)++;
@@ -85,11 +82,11 @@ int ft_fill_split(t_data *d, t_sep *sep, char **split_pipe, int *i)
 	return (0);
 }
 
-t_lst   *parsing(t_data *d)
+t_lst	*parsing(t_data *d)
 {
-	t_sep   sep[1];
-	char    **split_pipe;
-	int     i;
+	t_sep	sep[1];
+	char	**split_pipe;
+	int		i;
 
 	i = 0;
 	init_sep(sep);
@@ -111,4 +108,3 @@ t_lst   *parsing(t_data *d)
 		return (ft_return(d, NULL, 3));
 	return (d->cmd_lst);
 }
-

@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 18:41:15 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/28 15:31:07 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/30 12:17:23 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ size_t	count_char(const char *s, char c, t_data *d)
 	size_t	i;
 	int		count;
 
-	d->sp->s_quote = 0;
-	d->sp->d_quote = 0;
+	init_quote(d);
 	i = d->sp->line;
 	count = 0;
 	if (c == 'w')
@@ -86,7 +85,18 @@ size_t	count_char(const char *s, char c, t_data *d)
 		while (s[++i] && (s[i] == '<' || s[i] == '>'))
 			count++;
 	}
-	d->sp->s_quote = 0;
-	d->sp->d_quote = 0;
+	init_quote(d);
 	return (count);
+}
+
+int	check_chev_data_return(int what)
+{
+	g_exit_status = 2;
+	if (what == 1)
+		ft_putstr_fd("syntax error near unexpected token `<<<'\n", 2);
+	else if (what == 2)
+		ft_putstr_fd("syntax error near unexpected token `>>>'\n", 2);
+	else if (what == 3)
+		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+	return (g_exit_status);
 }
