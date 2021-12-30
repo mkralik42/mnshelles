@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/30 15:03:14 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/30 15:29:58 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ t_lst	*fill_arg(t_data *d, t_lst *cell)
 			return (NULL);
 		while (d->split[place_cmd] && d->split[place_cmd][0] != '|')
 		{
-			printf("split = %s\n", d->split[place_cmd]);
 			if (d->split[place_cmd][0] == '<' || d->split[place_cmd][0] == '>')
 				break ;
 			d->argo[i] = ft_strdup(d->split[place_cmd]);
