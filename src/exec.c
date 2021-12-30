@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 14:48:10 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/29 18:25:35 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/30 14:54:14 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,18 @@ int	exec_builtin(t_lst *cmd_lst, t_data *data)
 	return (EXIT_FAILURE);
 }
 
+void	free_before_exit(t_data *data, char **ch_env)
+{
+	ft_free_exit(data);
+	free_dble_str(ch_env);
+}
+
 int	ft_execute(t_data *data, int exit_code, t_lst *lst, char **ch_env)
 {
 	if (lst && lst->builtin)
 	{
 		exit_code = exec_builtin(lst, data);
-		ft_free_exit(data);
-		free_dble_str(ch_env);
+		free_before_exit(data, ch_env);
 		exit(exit_code);
 	}
 	else if (lst && lst->path)
@@ -46,8 +51,7 @@ int	ft_execute(t_data *data, int exit_code, t_lst *lst, char **ch_env)
 		exit_code = execve(lst->path, lst->arg, ch_env);
 		if (exit_code == -1)
 		{
-			ft_free_exit(data);
-			free_dble_str(ch_env);
+			free_before_exit(data, ch_env);
 			exit(exit_code);
 		}
 	}
@@ -55,8 +59,7 @@ int	ft_execute(t_data *data, int exit_code, t_lst *lst, char **ch_env)
 	{
 		error_cmd(lst->cmd);
 		g_exit_status = 127;
-		ft_free_exit(data);
-		free_dble_str(ch_env);
+		free_before_exit(data, ch_env);
 		exit (g_exit_status);
 	}
 	return (exit_code);

@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 19:48:09 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/23 16:45:28 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/30 14:49:43 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	cd_simple_dash(t_data *data, int *new, char *old_pwd)
 	{
 		ft_putstr_fd("cd: OLDPWD not set\n", 2);
 		g_exit_status = 1;
-		// if (old_pwd)
-		// 	free(old_pwd);
 		return (g_exit_status);
 	}
 	return (0);

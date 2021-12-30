@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/30 14:19:20 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/30 15:03:14 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,25 @@ void	fill_sep(t_data *d, t_sep *sep)
 	d->nb_pipe = sep->pipe;
 }
 
-
+int	fill_in_out_file_heredoc(int *fd, t_data *d, t_lst *cell, int p_r)
+{
+	if (!cell->cmd)
+	{
+		fd[0] = heredoc(d, d->split[p_r + 1]);
+		cell->cmd = ft_strdup("test");
+		cell->arg = malloc(sizeof(char *) * 2);
+		cell->arg[0] = ft_strdup("test");
+		cell->arg[1] = NULL;
+		cell->path = NULL;
+		cell->input = 3;
+		cell->output = 0;
+		cell->builtin = 0;
+	}
+	else
+		fd[0] = heredoc(d, d->split[p_r + 1]);
+	cell->input = fd[0];
+	return (fd[0]);
+}
 
 t_lst	*fill_in_out_file(t_data *d, t_lst *cell, char **split_quote)
 {
@@ -61,20 +79,7 @@ t_lst	*fill_in_out_file(t_data *d, t_lst *cell, char **split_quote)
 		{
 			if (cell->input > 0)
 				close(cell->input);
-			else if (!cell->cmd)
-			{
-				fd[0] = heredoc(d, d->split[p_r + 1]);
-				cell->cmd = NULL;
-				cell->arg = NULL;
-				cell->path = NULL;
-				cell->input = 3;
-				cell->output = 0;
-				cell->builtin = 0;
-				free(d->split[p_r + 2]);
-			}
-			else
-				fd[0] = heredoc(d, d->split[p_r + 1]);
-			cell->input = fd[0];
+			fd[0] = fill_in_out_file_heredoc(fd, d, cell, p_r);
 		}
 		p_r = found_place_raft(split_quote, p_r + 1, d);
 	}

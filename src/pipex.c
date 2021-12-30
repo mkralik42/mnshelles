@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 22:54:07 by paulguign         #+#    #+#             */
-/*   Updated: 2021/12/23 15:44:39 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/30 15:24:11 by lcavallu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,16 @@ void	pipe_child(t_data *data, int *fd, t_lst *lst, int fd_in)
 	ft_pipe_exec(data, lst, fd);
 }
 
+int	handle_pipe(int *fd, int *pid)
+{
+	if (error_catch(pipe(fd) < 0, NULL, strerror(errno)))
+		return (1);
+	*pid = fork();
+	if (error_catch(*pid < 0, NULL, strerror(errno)))
+		return (1);
+	return (0);
+}
+
 int	ft_pipe(t_data *data, t_lst *lst, int fd_in, int step)
 {
 	int	fd[2];
@@ -89,10 +99,7 @@ int	ft_pipe(t_data *data, t_lst *lst, int fd_in, int step)
 		ret = exec_builtin(lst, data);
 		return (ret);
 	}
-	if (error_catch(pipe(fd) < 0, NULL, strerror(errno)))
-		return (1);
-	pid = fork();
-	if (error_catch(pid < 0, NULL, strerror(errno)))
+	if (handle_pipe(fd, &pid) == 1)
 		return (1);
 	if (pid == 0)
 		pipe_child(data, fd, lst, fd_in);
