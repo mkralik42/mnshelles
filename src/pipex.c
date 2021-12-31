@@ -6,25 +6,11 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 22:54:07 by paulguign         #+#    #+#             */
-/*   Updated: 2021/12/30 15:24:11 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/31 16:04:10 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	error_cmd(char *arg)
-{
-	if (!arg)
-	{
-		arg = (char *)malloc(sizeof(char));
-		if (error_catch(!arg, NULL, "Malloc failed"))
-			exit (1);
-		*arg = 0;
-	}
-	error_catch(1, arg, "command not found");
-	if (!arg[0])
-		free(arg);
-}
 
 static int	ft_pipe_exec(t_data *data, t_lst *lst, int *fd)
 {
@@ -84,6 +70,25 @@ int	handle_pipe(int *fd, int *pid)
 	return (0);
 }
 
+void	handle_ret(int pid, int status, t_lst *lst, int *ret)
+{
+	if (lst->output)
+		close(lst->output);
+	if (lst->input)
+		close(lst->input);
+	waitpid(pid, &status, WUNTRACED);
+	if (!lst->next && WIFEXITED(status))
+		*ret = WEXITSTATUS(status);
+	else if (!lst->next && WIFSIGNALED(status))
+	{
+		*ret = WTERMSIG(status);
+		if (*ret == 3)
+			*ret = 131;
+		if (*ret == 2)
+			*ret = 130;
+	}
+}
+
 int	ft_pipe(t_data *data, t_lst *lst, int fd_in, int step)
 {
 	int	fd[2];
@@ -107,8 +112,6 @@ int	ft_pipe(t_data *data, t_lst *lst, int fd_in, int step)
 	if (lst->next)
 		ret = ft_pipe(data, lst->next, fd[0], step + 1);
 	close(fd[0]);
-	waitpid(pid, &status, 0);
-	if (!lst->next)
-		ret = WEXITSTATUS(status);
+	handle_ret(pid, status, lst, &ret);
 	return (ret);
 }

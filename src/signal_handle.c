@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_signal.c                                    :+:      :+:    :+:   */
+/*   signal_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 18:41:17 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/14 18:43:50 by mkralik          ###   ########.fr       */
+/*   Updated: 2021/12/31 14:49:57 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	handle_sig(int signum)
 
 void	handle_sig_child(int signum)
 {
+	printf("check\n");
 	if (signum == SIGINT)
 		ft_signal_stdin();
 	else if (signum == SIGQUIT)

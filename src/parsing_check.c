@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/30 17:58:55 by lcavallu         ###   ########.fr       */
+/*   Updated: 2021/12/31 15:59:08 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	check_pipe_space(char *split_pipe)
 	not_space = 0;
 	while (split_pipe[i])
 	{
-		if (split_pipe[i] != ' ')
+		if (split_pipe[i] != ' ' && split_pipe[i] != '\t')
 			not_space++;
 		i++;
 	}
