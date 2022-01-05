@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/20 22:54:07 by paulguign         #+#    #+#             */
-/*   Updated: 2021/12/31 16:04:10 by mkralik          ###   ########.fr       */
+/*   Created: 2022/01/05 18:40:18 by mkralik           #+#    #+#             */
+/*   Updated: 2022/01/05 18:40:22 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ void	pipe_child(t_data *data, int *fd, t_lst *lst, int fd_in)
 	else if (lst->input == 0)
 		fd[0] = fd_in;
 	else
+	{
 		fd[0] = lst->input;
+		if (fd_in > 0)
+			close(fd_in);
+	}
 	if (lst->output == 0 && !lst->next)
 	{
 		close(fd[1]);
@@ -63,10 +67,18 @@ void	pipe_child(t_data *data, int *fd, t_lst *lst, int fd_in)
 int	handle_pipe(int *fd, int *pid)
 {
 	if (error_catch(pipe(fd) < 0, NULL, strerror(errno)))
+	{
+		close(fd[0]);
+		close(fd[1]);
 		return (1);
+	}
 	*pid = fork();
 	if (error_catch(*pid < 0, NULL, strerror(errno)))
+	{
+		close(fd[0]);
+		close(fd[1]);
 		return (1);
+	}
 	return (0);
 }
 
@@ -109,6 +121,8 @@ int	ft_pipe(t_data *data, t_lst *lst, int fd_in, int step)
 	if (pid == 0)
 		pipe_child(data, fd, lst, fd_in);
 	close(fd[1]);
+	if (fd_in > 0)
+		close(fd_in);
 	if (lst->next)
 		ret = ft_pipe(data, lst->next, fd[0], step + 1);
 	close(fd[0]);

@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 18:32:23 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/20 13:54:10 by mkralik          ###   ########.fr       */
+/*   Updated: 2022/01/05 18:39:32 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,50 +93,3 @@ int	ft_atoi(const char *str)
 		return (0);
 	return (value * sign);
 }
-
-// static size_t	nbrlen(long n)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	if (n == 0)
-// 		i++;
-// 	if (n < 0)
-// 	{
-// 		n = -n;
-// 		i++;
-// 	}
-// 	while (n > 0)
-// 	{
-// 		n /= 10;
-// 		i++;
-// 	}
-// 	return (i);
-// }
-
-// char	*ft_itoa(int n)
-// {
-// 	char	*ret;
-// 	long	nb;
-// 	size_t	len;
-
-// 	nb = n;
-// 	len = nbrlen(n);
-// 	ret = malloc(sizeof(char) * (len + 1));
-// 	if (!ret)
-// 		return (NULL);
-// 	ret[len--] = 0;
-// 	if (n == 0)
-// 		ret[0] = '0';
-// 	if (nb < 0)
-// 	{
-// 		ret[0] = '-';
-// 		nb = -nb;
-// 	}
-// 	while (nb)
-// 	{
-// 		ret[len--] = (nb % 10) + 48;
-// 		nb /= 10;
-// 	}
-// 	return (ret);
-// }

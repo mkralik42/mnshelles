@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:38:51 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/22 18:48:14 by mkralik          ###   ########.fr       */
+/*   Updated: 2022/01/05 14:37:18 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ void	free_dble_str(char **str)
 void	remove_from_list(t_lst *cmd_lst, t_data *data)
 {
 	(void)data;
+	if (cmd_lst->input > 0)
+		close(cmd_lst->input);
+	if (cmd_lst->output > 0)
+		close(cmd_lst->output);
 	if (!cmd_lst)
 		return ;
 	if (cmd_lst->cmd)

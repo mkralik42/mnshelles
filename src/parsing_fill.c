@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/31 16:03:32 by mkralik          ###   ########.fr       */
+/*   Updated: 2022/01/05 14:13:36 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,12 @@ t_lst	*fill_in_out_file(t_data *d, t_lst *cell, char **split_quote)
 	int	fd[0];
 
 	p_r = found_place_raft(split_quote, 0, d);
+	if (cell->input)
+		close(cell->input);
+	if (cell->output)
+		close(cell->output);
 	while (p_r != -1)
 	{
-		printf("pr = %d\n", p_r);
 		if (d->split[p_r][0] == '<' && d->split[p_r][1] != '<')
 			cell = create_new_int(cell, 'i', open(d->split[p_r + 1], O_RDONLY));
 		else if (d->split[p_r][0] == '>' && d->split[p_r][1] != '>')

@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 22:37:57 by paulguign         #+#    #+#             */
-/*   Updated: 2021/12/31 16:04:01 by mkralik          ###   ########.fr       */
+/*   Updated: 2022/01/05 18:35:57 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	error_cmd(char *arg)
 {
-	if (!arg)
+	if (!arg[0])
 	{
 		arg = (char *)malloc(sizeof(char));
 		if (error_catch(!arg, NULL, "Malloc failed"))

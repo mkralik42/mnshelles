@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 15:58:26 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/30 17:20:58 by mkralik          ###   ########.fr       */
+/*   Updated: 2022/01/05 18:24:38 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ char	*ft_getcwd(void)
 	int		i;
 
 	i = 1;
-	cwd = (char *)malloc(sizeof(char) * i);
-	getcwd(cwd, i++);
+	cwd = getcwd(NULL, i++);
 	while (errno)
 	{
 		errno = 0;
 		free(cwd);
-		cwd = (char *)malloc(sizeof(char) * i);
-		getcwd(cwd, i++);
+		cwd = getcwd(NULL, i++);
+		if (errno == 2)
+			break ;
 	}
 	return (cwd);
 }

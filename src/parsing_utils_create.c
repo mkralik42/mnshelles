@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:07:05 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/31 15:48:02 by mkralik          ###   ########.fr       */
+/*   Updated: 2022/01/05 14:38:23 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ t_lst	*create_new_int(t_lst *cell, char what, int file)
 {
 	if (what == 'i')
 	{
-		if (cell->input)
+		if (cell->input > 0)
 			close(cell->input);
 		cell->input = file;
 	}
 	if (what == 'o')
 	{
-		if (cell->output)
+		if (cell->output > 0)
 			close(cell->output);
 		cell->output = file;
 	}

@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 18:41:15 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/29 18:46:05 by lcavallu         ###   ########.fr       */
+/*   Updated: 2022/01/05 17:15:28 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*fill_memory(char *s, t_data *d, int i, t_env *tmp)
 	else if (d->sp->remember_mem != 0 && s[d->sp->line] == '?')
 		d->sp->new[d->sp->j] = (char *)malloc(sizeof(char)
 				* (d->sp->remember_mem + ft_strlen(nb_exit) + 1));
-	if (s[d->sp->line] == '?')
+	if (s[d->sp->line] == '?' && s[d->sp->line + 1] == 0)
 		d->sp->remember_mem += ft_strlen(nb_exit);
 	else
 		d->sp->remember_mem += ft_strlen(tmp->value);
