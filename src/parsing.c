@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/30 19:05:56 by mkralik          ###   ########.fr       */
+/*   Updated: 2022/01/05 18:42:47 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_fill_cell(t_data *d, t_sep *sep, char **split_quote)
 	cell = check_infile_outfile(d, sep, cell, split_quote);
 	cell = fill_in_out_file(d, cell, split_quote);
 	cell = fill_builtin(cell);
-	if (cell->builtin == 0)
+	if (cell->builtin == 0 && cell->cmd[0])
 		cell = found_path(cell, d);
 	cell = fill_arg(d, cell);
 	cell->next = NULL;

@@ -6,11 +6,19 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 19:20:28 by lcavallu          #+#    #+#             */
-/*   Updated: 2021/12/30 18:54:21 by mkralik          ###   ########.fr       */
+/*   Updated: 2022/01/05 18:49:36 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_check_close(t_lst *cell)
+{
+	if (cell->input)
+		close(cell->input);
+	if (cell->output)
+		close(cell->output);
+}
 
 void	check_in_out_data(t_data *d, t_sep *sep, t_lst *cell, int place_raft)
 {

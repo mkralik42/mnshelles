@@ -6,7 +6,7 @@
 /*   By: mkralik <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:48:37 by mkralik           #+#    #+#             */
-/*   Updated: 2021/12/30 17:22:29 by mkralik          ###   ########.fr       */
+/*   Updated: 2022/01/05 18:50:40 by mkralik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,7 @@ t_lst	*parsing(t_data *d);
 
 /*---------------------parsing_file.c--------------------------*/
 
+void	ft_check_close(t_lst *cell);
 void	check_in_out_data(t_data *d, t_sep *sep, t_lst *cell, int place_raft);
 t_lst	*check_infile_outfile(t_data *d, t_sep *sep, t_lst *cell, char **s_q);
 t_lst	*fill_builtin(t_lst *cell);
